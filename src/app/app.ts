@@ -741,7 +741,8 @@ export class App implements OnInit, OnDestroy {
   private async initMap(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    this.L = await import('leaflet');
+    const leafletModule = await import('leaflet');
+    this.L = leafletModule.default ?? leafletModule;
     const L = this.L;
 
     // ✅ Fix OBLIGATOIRE pour les icônes après ng build
@@ -754,13 +755,6 @@ export class App implements OnInit, OnDestroy {
     });
     L.Marker.prototype.options.icon = iconDefault;
 
-    // ✅ Fix pour éviter l'erreur "_getIconUrl" au build prod
-    delete (L.Icon.Default.prototype as any)._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: 'assets/images/marker-icon-2x.png',
-      iconUrl: 'assets/images/marker-icon.png',
-      shadowUrl: 'assets/images/marker-shadow.png',
-    });
 
     const mapEl = document.getElementById('map');
     if (!mapEl) {
