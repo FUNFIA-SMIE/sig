@@ -1,0 +1,33 @@
+{
+"type": "FeatureCollection",
+"name": "Ville et Village Madagascar",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "fid": 1.0, "Nom": "Morondava" }, "geometry": { "type": "Point", "coordinates": [ 44.269731749945215, -20.294242455334174 ] } },
+{ "type": "Feature", "properties": { "fid": 2.0, "Nom": "Marofandila" }, "geometry": { "type": "Point", "coordinates": [ 44.549314829330697, -20.103950553621832 ] } },
+{ "type": "Feature", "properties": { "fid": 3.0, "Nom": "Bekopaka Tsingy" }, "geometry": { "type": "Point", "coordinates": [ 44.796605027252653, -19.139632124355426 ] } },
+{ "type": "Feature", "properties": { "fid": 4.0, "Nom": "Miandrivazo" }, "geometry": { "type": "Point", "coordinates": [ 45.449774301897712, -19.544219709709484 ] } },
+{ "type": "Feature", "properties": { "fid": 5.0, "Nom": "Toliara" }, "geometry": { "type": "Point", "coordinates": [ 43.667403763640891, -23.358293165873683 ] } },
+{ "type": "Feature", "properties": { "fid": 6.0, "Nom": "Ambatomilo" }, "geometry": { "type": "Point", "coordinates": [ 43.26759889608212, -22.415427522472513 ] } },
+{ "type": "Feature", "properties": { "fid": 7.0, "Nom": "Belo sur Mer" }, "geometry": { "type": "Point", "coordinates": [ 44.006613665729603, -20.729016411329091 ] } },
+{ "type": "Feature", "properties": { "fid": 8.0, "Nom": "Andavadoaka" }, "geometry": { "type": "Point", "coordinates": [ 43.244991383167182, -22.091358143200036 ] } },
+{ "type": "Feature", "properties": { "fid": 9.0, "Nom": "Morombe" }, "geometry": { "type": "Point", "coordinates": [ 43.38115140226418, -21.738717794334388 ] } },
+{ "type": "Feature", "properties": { "fid": 10.0, "Nom": "Anakao" }, "geometry": { "type": "Point", "coordinates": [ 43.652641228478913, -23.643319403613134 ] } },
+{ "type": "Feature", "properties": { "fid": 11.0, "Nom": "Ilakaka" }, "geometry": { "type": "Point", "coordinates": [ 45.219114616090948, -22.697498405290222 ] } },
+{ "type": "Feature", "properties": { "fid": 12.0, "Nom": "Isalo" }, "geometry": { "type": "Point", "coordinates": [ 45.412506716691581, -22.556468341959647 ] } },
+{ "type": "Feature", "properties": { "fid": 13.0, "Nom": "Ambalavao" }, "geometry": { "type": "Point", "coordinates": [ 46.942051434747313, -21.826701738379338 ] } },
+{ "type": "Feature", "properties": { "fid": 14.0, "Nom": "Fianarantsoa" }, "geometry": { "type": "Point", "coordinates": [ 47.089461351613195, -21.445527310095791 ] } },
+{ "type": "Feature", "properties": { "fid": 15.0, "Nom": "Sahambavy" }, "geometry": { "type": "Point", "coordinates": [ 47.259244955868262, -21.446292704760157 ] } },
+{ "type": "Feature", "properties": { "fid": 16.0, "Nom": "Ranomafana" }, "geometry": { "type": "Point", "coordinates": [ 47.454082045673232, -21.260852406401145 ] } },
+{ "type": "Feature", "properties": { "fid": 17.0, "Nom": "Ambositra" }, "geometry": { "type": "Point", "coordinates": [ 47.244847608886978, -20.536276038803152 ] } },
+{ "type": "Feature", "properties": { "fid": 18.0, "Nom": "Tsarasaotra" }, "geometry": { "type": "Point", "coordinates": [ 47.204687418019141, -20.442401910977342 ] } },
+{ "type": "Feature", "properties": { "fid": 19.0, "Nom": "Antsirabe" }, "geometry": { "type": "Point", "coordinates": [ 47.042022356035105, -19.870757831509927 ] } },
+{ "type": "Feature", "properties": { "fid": 20.0, "Nom": "Ambatolampy" }, "geometry": { "type": "Point", "coordinates": [ 47.440319180315207, -19.380848053477653 ] } },
+{ "type": "Feature", "properties": { "fid": 21.0, "Nom": "Antananarivo" }, "geometry": { "type": "Point", "coordinates": [ 47.478968700651237, -18.801620231215448 ] } },
+{ "type": "Feature", "properties": { "fid": 22.0, "Nom": "Andasibe" }, "geometry": { "type": "Point", "coordinates": [ 48.416477696417196, -18.924704631307065 ] } },
+{ "type": "Feature", "properties": { "fid": 23.0, "Nom": "Manakara" }, "geometry": { "type": "Point", "coordinates": [ 48.021732918326578, -22.149700459183542 ] } },
+{ "type": "Feature", "properties": { "fid": 24.0, "Nom": "Nosy Be" }, "geometry": { "type": "Point", "coordinates": [ 48.1861779442849, -13.254501962301516 ] } },
+{ "type": "Feature", "properties": { "fid": 25.0, "Nom": "Diego" }, "geometry": { "type": "Point", "coordinates": [ 49.293896159307906, -12.286979235367642 ] } },
+{ "type": "Feature", "properties": { "fid": 1.0, "Nom": "Majunga" }, "geometry": { "type": "Point", "coordinates": [ 46.305037794745949, -15.721563799312515 ] } }
+]
+}
