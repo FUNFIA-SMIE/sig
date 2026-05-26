@@ -19,19 +19,19 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "allowedCommonJsDependencies": [
-              "leaflet"
-            ],
+            "allowedCommonJsDependencies": ["leaflet"],
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "images/**/*",
+                "input": "node_modules/leaflet/dist",
+                "output": "assets/"
               }
             ],
-            "styles": [
-              "src/styles.css",
-              "./node_modules/leaflet/dist/leaflet.css"
-            ],
+            "styles": ["src/styles.css", "./node_modules/leaflet/dist/leaflet.css"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {

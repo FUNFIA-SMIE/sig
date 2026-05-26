@@ -721,6 +721,9 @@ export class App implements OnInit, OnDestroy {
 
   async ngAfterViewInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
+
+    // Délai pour que le DOM soit vraiment prêt après SSR hydration
+    await new Promise((resolve) => setTimeout(resolve, 0));
     await this.initMap();
   }
 
@@ -736,11 +739,36 @@ export class App implements OnInit, OnDestroy {
   }
 
   private async initMap(): Promise<void> {
-    this.L = (await import('leaflet')) as any;
-    const L = this.L;
-    (window as any).L = L;
+    if (!isPlatformBrowser(this.platformId)) return;
 
-    this.map = L.map('map', {
+    this.L = await import('leaflet');
+    const L = this.L;
+
+    // ✅ Fix OBLIGATOIRE pour les icônes après ng build
+    const iconDefault = L.icon({
+      iconRetinaUrl: 'assets/images/marker-icon-2x.png',
+      iconUrl: 'assets/images/marker-icon.png',
+      shadowUrl: 'assets/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+    });
+    L.Marker.prototype.options.icon = iconDefault;
+
+    // ✅ Fix pour éviter l'erreur "_getIconUrl" au build prod
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: 'assets/images/marker-icon-2x.png',
+      iconUrl: 'assets/images/marker-icon.png',
+      shadowUrl: 'assets/images/marker-shadow.png',
+    });
+
+    const mapEl = document.getElementById('map');
+    if (!mapEl) {
+      console.error('❌ #map introuvable dans le DOM');
+      return;
+    }
+
+    this.map = L.map(mapEl, {
       center: [-19.5, 46.5],
       zoom: 6,
       minZoom: 5,
@@ -748,7 +776,6 @@ export class App implements OnInit, OnDestroy {
       zoomControl: false,
     });
 
-    // Fond de carte CartoDB Voyager — plus beau que OpenStreetMap standard
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://carto.com/">CartoDB</a> &copy; OpenStreetMap',
       subdomains: 'abcd',
@@ -760,9 +787,10 @@ export class App implements OnInit, OnDestroy {
 
     await this.loadAllCircuits(L);
     this.cities.forEach((city) => this.addCityMarker(L, city));
-    setTimeout(() => this.map?.invalidateSize(), 0);
-  }
 
+    // ✅ Délai plus long pour SSR hydration
+    setTimeout(() => this.map?.invalidateSize(), 300);
+  }
   private async loadAllCircuits(L: any): Promise<void> {
     for (const circuit of this.circuitConfig) {
       try {
@@ -935,40 +963,40 @@ export class App implements OnInit, OnDestroy {
     }).addTo(this.map);
 
     // Label circuit centré
-try {
-  // ── Récupère le dernier point du tracé ──────────────────────────────
-  const allPoints: [number, number][] = [];
-  drawData.features.forEach((feature: any) => {
-    const geom = feature.geometry;
-    if (geom.type === 'LineString') {
-      geom.coordinates.forEach((c: any) => allPoints.push([c[1], c[0]]));
-    } else if (geom.type === 'MultiLineString') {
-      geom.coordinates.forEach((line: any) =>
-        line.forEach((c: any) => allPoints.push([c[1], c[0]]))
-      );
-    }
-  });
+    try {
+      // ── Récupère le dernier point du tracé ──────────────────────────────
+      const allPoints: [number, number][] = [];
+      drawData.features.forEach((feature: any) => {
+        const geom = feature.geometry;
+        if (geom.type === 'LineString') {
+          geom.coordinates.forEach((c: any) => allPoints.push([c[1], c[0]]));
+        } else if (geom.type === 'MultiLineString') {
+          geom.coordinates.forEach((line: any) =>
+            line.forEach((c: any) => allPoints.push([c[1], c[0]])),
+          );
+        }
+      });
 
-  //if (allPoints.length === 0);
+      //if (allPoints.length === 0);
 
-  // Dernier point = fin du circuit
-  const endPt = allPoints[allPoints.length - 1];
-  const labelLatLng = L.latLng(endPt[0], endPt[1]);
+      // Dernier point = fin du circuit
+      const endPt = allPoints[allPoints.length - 1];
+      const labelLatLng = L.latLng(endPt[0], endPt[1]);
 
-  // ── Style du label ──────────────────────────────────────────────────
-  const darkColorMap: Record<string, string> = {
-    '#48CAE4': '#148FAA',
-    '#C77DFF': '#7B42C4',
-    '#74C69D': '#2A7A4F',
-    '#F4A261': '#A05A2C',
-    '#FFD60A': '#8A7010',
-  };
-  const textColor = darkColorMap[circuit.color] ?? '#1E3326';
-  const borderColor = circuit.color + '66';
+      // ── Style du label ──────────────────────────────────────────────────
+      const darkColorMap: Record<string, string> = {
+        '#48CAE4': '#148FAA',
+        '#C77DFF': '#7B42C4',
+        '#74C69D': '#2A7A4F',
+        '#F4A261': '#A05A2C',
+        '#FFD60A': '#8A7010',
+      };
+      const textColor = darkColorMap[circuit.color] ?? '#1E3326';
+      const borderColor = circuit.color + '66';
 
-  const labelIcon = L.divIcon({
-    className: '',
-    html: `<div style="
+      const labelIcon = L.divIcon({
+        className: '',
+        html: `<div style="
       display: inline-flex;
       align-items: center;
       gap: 5px;
@@ -996,12 +1024,12 @@ try {
       "></span>
       ${circuit.name}
     </div>`,
-    // Ancré à gauche du label, légèrement décalé du point
-    iconAnchor: [-12, 10],
-  });
+        // Ancré à gauche du label, légèrement décalé du point
+        iconAnchor: [-12, 10],
+      });
 
-  L.marker(labelLatLng, { icon: labelIcon, interactive: false }).addTo(this.map);
-} catch (e) {}
+      L.marker(labelLatLng, { icon: labelIcon, interactive: false }).addTo(this.map);
+    } catch (e) {}
 
     layer.on('mouseover', () => {
       layer.setStyle({ weight: 8, opacity: 1 });
