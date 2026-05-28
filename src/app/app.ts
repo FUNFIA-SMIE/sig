@@ -2,6 +2,7 @@ import { Component, signal, PLATFORM_ID, Inject, OnDestroy, OnInit } from '@angu
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { EtapeSlider } from './component/etape-slider/etape-slider';
 
 export interface City {
   name: string;
@@ -26,13 +27,13 @@ export interface CircuitLayer {
 
 // Base de données des coordonnées des villes d'itinéraire
 const CITY_COORDS: Record<string, [number, number]> = {
-  Antananarivo: [-18.9249, 47.5185],
+  'Antananarivo (Tana)': [-18.9249, 47.5185],
   Andasibe: [-18.9733, 48.4125],
   Ambatolampy: [-19.3833, 47.4167],
   Antsirabe: [-19.8659, 47.0342],
   Ranomafana: [-21.25, 47.4167],
   Manakara: [-22.1455, 48.011],
-  Mahajanga: [-15.7167, 46.3167],
+  'Mahajanga (Majunga)': [-15.7167, 46.3167],
   'Nosy Be': [-13.3333, 48.2667],
   Miandrivazo: [-19.5167, 45.45],
   Morondava: [-20.2841, 44.2828],
@@ -54,7 +55,7 @@ const CITY_COORDS: Record<string, [number, number]> = {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, EtapeSlider],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -387,6 +388,23 @@ export class App implements OnInit, OnDestroy {
         "La RN7 offre un panorama unique : artisanat à Ambositra, brumes de Ranomafana, canyons de l'Isalo et plages immaculées d'Anakao.",
       etapes: [
         {
+          nom: 'Antananarivo (Tana)',
+          description:
+            "Perchée à 1 400 m d'altitude, la capitale de Madagascar entre palais royaux, marchés colorés et ruelles animées.",
+          activites: [
+            'Visite du Palais Royal de Manjakamiadana',
+            'Croc Farm',
+            "Lemurs' Park",
+            'Marché artisanal de Digue',
+          ],
+          hotels: [
+            'Hôtel San Cristobal Boutique ★★★★',
+            'Hôtel Colbert ★★★★',
+            'Palissandre Hôtel ★★★★★',
+          ],
+          restaurants: ['Le Pavé (cuisine française)', 'Café de la Gare', 'Le Glacier'],
+        },
+        {
           nom: 'Ambositra',
           description:
             "Capitale de l'artisanat malgache, bois sculptés en chefs-d'œuvre zafimaniry.",
@@ -510,6 +528,24 @@ export class App implements OnInit, OnDestroy {
         'Le circuit le plus complet : Tsingy, baobabs, côte Vezo sauvage, plages immaculées, Isalo et retour par la mythique RN7.',
       etapes: [
         {
+          nom: 'Antananarivo (Tana)',
+          description:
+            "Perchée à 1 400 m d'altitude, la capitale de Madagascar entre palais royaux, marchés colorés et ruelles animées.",
+          activites: [
+            'Visite du Palais Royal de Manjakamiadana',
+            'Croc Farm',
+            "Lemurs' Park",
+            'Marché artisanal de Digue',
+          ],
+          hotels: [
+            'Hôtel San Cristobal Boutique ★★★★',
+            'Hôtel Colbert ★★★★',
+            'Palissandre Hôtel ★★★★★',
+          ],
+          restaurants: ['Le Pavé (cuisine française)', 'Café de la Gare', 'Le Glacier'],
+        },
+
+        {
           nom: 'Belo sur Mer',
           description:
             'Village de pêcheurs Vezo, artisans charpentiers construisant des boutres traditionnels.',
@@ -561,156 +597,6 @@ export class App implements OnInit, OnDestroy {
   ];
 
   // ─── Villes principales ───────────────────────────────────────────────────
-  readonly cities: City[] = [
-    {
-      name: 'Antananarivo',
-      lat: -18.9249,
-      lng: 47.5185,
-      region: 'Analamanga',
-      description:
-        "Perchée à 1 400 m d'altitude, la capitale de Madagascar mêle palais royaux, marchés colorés et ruelles animées. Ville haute et ville basse se côtoient dans une atmosphère unique, entre héritage merina et influences coloniales françaises.",
-      highlights: [
-        'Palais Royal de Manjakamiadana',
-        'Croc Farm (ferme aux crocodiles)',
-        "Lemurs' Park d'Imerintsiatosika",
-        'Marché artisanal de Digue',
-        'Tour de la ville haute et basse',
-        "Musée d'Art et d'Archéologie",
-      ],
-      image: '🏛️',
-      population: '3,4 millions',
-      bestTime: "Toute l'année",
-      category: 'capital',
-    },
-    {
-      name: 'Toamasina',
-      lat: -18.162,
-      lng: 49.382,
-      region: 'Atsinanana',
-      description:
-        "Principal port de Madagascar sur la côte est. Porte d'entrée vers la forêt tropicale et les îles Sainte-Marie.",
-      highlights: [
-        'Port de Toamasina',
-        'Île Sainte-Marie',
-        'Parc Ivoloina',
-        'Canal des Pangalanes',
-      ],
-      image: '⚓',
-      population: '325 000',
-      bestTime: 'Juillet – Novembre',
-      category: 'east',
-    },
-    {
-      name: 'Mahajanga',
-      lat: -15.7167,
-      lng: 46.3167,
-      region: 'Boeny',
-      description:
-        'Perle de la côte ouest, Mahajanga séduit par ses baobabs géants, son bord de mer apaisant et sa population multiculturelle.',
-      highlights: [
-        'Front de mer et baobab millénaire',
-        'Grotte des Chauves-Souris',
-        "Parc National d'Ankarafantsika",
-        'Plages et couchers de soleil',
-      ],
-      image: '🌴',
-      population: '220 000',
-      bestTime: 'Avril – Octobre',
-      category: 'west',
-    },
-    {
-      name: 'Fianarantsoa',
-      lat: -21.4527,
-      lng: 47.0856,
-      region: 'Haute Matsiatra',
-      description:
-        'Fière ville des Hauts Plateaux — "là où l\'on apprend le bien". Haute-Ville aux ruelles pavées, maisons betsileo en briques rouges.',
-      highlights: [
-        'Haute-Ville historique (UNESCO)',
-        'Ancienne capitale betsileo',
-        'Église Ambozontany',
-        'Vins malgaches',
-        'Gare ferroviaire historique FCE',
-      ],
-      image: '🚂',
-      population: '167 000',
-      bestTime: 'Mai – Septembre',
-      category: 'highland',
-    },
-    {
-      name: 'Toliara',
-      lat: -23.3568,
-      lng: 43.6917,
-      region: 'Atsimo-Andrefana',
-      description:
-        'Traversée par le Tropique du Capricorne, "Porte du Grand Sud". Point de départ vers les paradis marins d\'Anakao et Nosy Ve.',
-      highlights: [
-        "Arboretum d'Antsokay",
-        'Monument du Tropique du Capricorne',
-        'Parc Reniala',
-        "Plage d'Anakao & Nosy Ve",
-      ],
-      image: '🌊',
-      population: '107 000',
-      bestTime: "Toute l'année",
-      category: 'south',
-    },
-    {
-      name: 'Antsiranana',
-      lat: -12.3525,
-      lng: 49.2994,
-      region: 'Diana',
-      description:
-        "Diego-Suarez possède l'un des plus beaux ports naturels au monde. Paysages lunaires, kitesurf et forêts tropicales préservées.",
-      highlights: [
-        'Baie de Diego-Suarez',
-        "Parc Montagne d'Ambre",
-        'Plage de Ramena',
-        'Tsingy rouge',
-      ],
-      image: '🏔️',
-      population: '108 000',
-      bestTime: 'Avril – Décembre',
-      category: 'north',
-    },
-    {
-      name: 'Morondava',
-      lat: -20.2841,
-      lng: 44.2828,
-      region: 'Menabe',
-      description:
-        "Le temple des baobabs ! La célébrissime Allée des Baobabs avec ses géants millénaires est l'une des images les plus iconiques de Madagascar.",
-      highlights: [
-        'Allée des Baobabs (coucher de soleil)',
-        'Baobab Amoureux',
-        'Forêt de Kirindy',
-        'Tsingy de Bemaraha (UNESCO)',
-      ],
-      image: '🌳',
-      population: '58 000',
-      bestTime: 'Avril – Novembre',
-      category: 'west',
-    },
-    {
-      name: 'Antsirabe',
-      lat: -19.8659,
-      lng: 47.0342,
-      region: 'Vakinankaratra',
-      description:
-        'Surnommée la "ville des eaux", Antsirabe est une charmante cité coloniale à 1 500 m d\'altitude, animée par ses pousse-pousse colorés.',
-      highlights: [
-        'Sources thermales',
-        'Tour en pousse-pousse',
-        'Ateliers de gemmes',
-        'Lacs Tritriva et Andraikiba',
-        'Marché artisanal',
-      ],
-      image: '♨️',
-      population: '225 000',
-      bestTime: 'Avril – Octobre',
-      category: 'highland',
-    },
-  ];
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -755,7 +641,6 @@ export class App implements OnInit, OnDestroy {
     });
     L.Marker.prototype.options.icon = iconDefault;
 
-
     const mapEl = document.getElementById('map');
     if (!mapEl) {
       console.error('❌ #map introuvable dans le DOM');
@@ -780,7 +665,9 @@ export class App implements OnInit, OnDestroy {
     L.control.scale({ position: 'bottomleft', imperial: false, maxWidth: 100 }).addTo(this.map);
 
     await this.loadAllCircuits(L);
-    this.cities.forEach((city) => this.addCityMarker(L, city));
+    // S'assurer que tous les circuits sont visibles au premier affichage
+    this.showAllCircuits();
+    //this.cities.forEach((city) => this.addCityMarker(L, city));
 
     // ✅ Délai plus long pour SSR hydration
     setTimeout(() => this.map?.invalidateSize(), 300);
@@ -831,76 +718,70 @@ export class App implements OnInit, OnDestroy {
     const markers: any[] = [];
     if (!circuit.etapes) return markers;
 
-    circuit.etapes.forEach((etape: any, index: number) => {
+    circuit.etapes.forEach((etape: any) => {
+      if (!etape?.nom) return; // ← guard contre le undefined (virgule parasite dans Sud-Ouest)
       const coords = CITY_COORDS[etape.nom];
       if (!coords) return;
 
-      // Vérifier si c'est déjà une ville principale
-      const isMainCity = this.cities.some(
-        (c) => Math.abs(c.lat - coords[0]) < 0.05 && Math.abs(c.lng - coords[1]) < 0.05,
-      );
-      if (isMainCity) return;
-
-      const stepNum = index + 1;
-
-      // Marqueur d'étape — petit, élégant
       const dotIcon = L.divIcon({
         className: '',
         html: `<div style="
-          width: 16px; height: 16px;
-          background: ${circuit.color};
-          border-radius: 50%;
-          border: 2.5px solid rgba(255,255,255,0.9);
-          box-shadow: 0 0 0 1.5px ${circuit.color}60, 0 2px 8px rgba(0,0,0,0.3);
-          cursor: pointer;
-          display: flex; align-items: center; justify-content: center;
-          position: relative;
-        ">
-          <div style="
-            width: 5px; height: 5px;
-            background: rgba(255,255,255,0.7);
-            border-radius: 50%;
-          "></div>
-        </div>`,
+        width: 16px; height: 16px;
+        background: ${circuit.color};
+        border-radius: 50%;
+        border: 2.5px solid rgba(255,255,255,0.9);
+        box-shadow: 0 0 0 1.5px ${circuit.color}60, 0 2px 8px rgba(0,0,0,0.3);
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+      ">
+        <div style="width:5px;height:5px;background:rgba(255,255,255,0.7);border-radius:50%;"></div>
+      </div>`,
         iconAnchor: [8, 8],
       });
 
-      // Label du nom de l'étape
       const labelIcon = L.divIcon({
         className: '',
         html: `<div style="
-          color: ${circuit.color};
-          font-family: 'DM Sans', sans-serif;
-          font-size: 10px;
-          font-weight: 600;
-          white-space: nowrap;
-          text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6);
-          pointer-events: none;
-          letter-spacing: 0.3px;
-          padding: 2px 0;
-        ">${etape.nom}</div>`,
+        color: ${circuit.color};
+        font-family: 'DM Sans', sans-serif;
+        font-size: 10px; font-weight: 600;
+        white-space: nowrap;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6);
+        pointer-events: none; letter-spacing: 0.3px; padding: 2px 0;
+      ">${etape.nom}</div>`,
         iconAnchor: [-8, -2],
       });
 
       const marker = L.marker(coords, { icon: dotIcon, zIndexOffset: 100 }).addTo(this.map);
       const label = L.marker(coords, { icon: labelIcon, interactive: false }).addTo(this.map);
 
-      // Popup au clic sur l'étape
       marker.on('click', () => {
+        // ← On force le circuit ET l'étape exacte
         this.selectedCircuit.set(circuit);
         this.selectedCity.set(null);
         this.activePanel.set('circuit');
         this.brochureOpen.set(true);
 
-        // Scroll jusqu'à l'étape dans la brochure (delay pour attendre l'ouverture)
         setTimeout(() => {
           const etapeEls = document.querySelectorAll('.etape-nom');
-          etapeEls.forEach((el) => {
-            if (el.textContent?.includes(etape.nom)) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          for (const el of Array.from(etapeEls)) {
+            if (el.textContent?.trim() === etape.nom) {
+              const brochureEl = document.querySelector('.brochure') as HTMLElement;
+              const etapeCard = el.closest('.etape-card') as HTMLElement;
+              if (brochureEl && etapeCard) {
+                // Calcule la position réelle par rapport au conteneur scrollable
+                const brochureRect = brochureEl.getBoundingClientRect();
+                const cardRect = etapeCard.getBoundingClientRect();
+                const scrollOffset = cardRect.top - brochureRect.top + brochureEl.scrollTop - 12;
+                brochureEl.scrollTo({
+                  top: scrollOffset,
+                  behavior: 'smooth',
+                });
+              }
+              break;
             }
-          });
-        }, 600);
+          }
+        }, 550);
 
         this.map.panTo(coords, { animate: true, duration: 0.6 });
       });
@@ -910,7 +791,6 @@ export class App implements OnInit, OnDestroy {
 
     return markers;
   }
-
   private applyOffset(data: any, offset: number): any {
     return {
       ...data,
@@ -1062,6 +942,20 @@ export class App implements OnInit, OnDestroy {
     const show = !this.allVisible();
     this.circuitLayers.forEach((cl) => {
       if (cl.visible !== show) this.toggleCircuit(cl);
+    });
+  }
+
+  /** Force l'affichage de tous les circuits (utilisé au premier chargement) */
+  showAllCircuits(): void {
+    this.circuitLayers.forEach((cl) => {
+      if (!cl.visible) {
+        cl.visible = true;
+        try {
+          cl.layer.addTo(this.map);
+          cl.halo.addTo(this.map);
+          cl.itinMarkers.forEach((m: any) => m.addTo(this.map));
+        } catch (e) {}
+      }
     });
   }
 

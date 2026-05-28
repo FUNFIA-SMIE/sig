@@ -111,7 +111,7 @@ html, body {
   font-size: 20px;
   z-index: 1;
   background: var(--ink);
-  border-radius: 50%;
+  /*border-radius: 50%;*/
 }
 
 .brand-emblem-ring {
@@ -719,41 +719,78 @@ html, body {
   bottom: 50px;
   right: 14px;
   z-index: 800;
-  background: var(--white);
+  background: rgba(255,255,255,0.66);
   border: 1px solid var(--b-mid);
   border-radius: var(--r-lg);
   box-shadow: var(--sh-lg);
   min-width: 200px;
   overflow: hidden;
   transition: all 0.3s var(--ease-spring);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+  backdrop-filter: blur(6px) saturate(110%);
 }
 
 .legend-header { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; cursor: pointer; background: var(--ink); user-select: none; }
 .legend-header:hover { background: var(--ink-mid); }
 .legend-title-row { display: flex; align-items: center; gap: 8px; }
 .legend-title-icon { width: 20px; height: 20px; background: rgba(255,255,255,0.12); border-radius: 5px; display: flex; align-items: center; justify-content: center; }
-.legend-title { font-size: 11px; font-weight: 600; color: var(--fog); letter-spacing: 1.5px; text-transform: uppercase; }
+.legend-title { font-size: 11px; font-weight: 600; color: var(--fog); letter-spacing: 1.5px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px; }
+.legend-title-status { font-size: 9px; font-weight: 500; color: rgba(255,255,255,0.7); text-transform: lowercase; letter-spacing: 0; display: inline-flex; align-items: center; gap: 3px; }
+.legend-status-chevron { display: inline-flex; align-items: center; justify-content: center; transition: transform 0.3s var(--ease-spring); }
+.legend-status-chevron.down { transform: rotate(180deg); }
 .legend-toggle { color: var(--sage-pale); display: flex; align-items: center; transition: transform 0.3s var(--ease-out); }
 .legend-toggle.open { transform: rotate(180deg); }
 
 .legend-body { padding: 8px; animation: slideDown 0.22s var(--ease-spring); }
 @keyframes slideDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
-.legend-all-row { display: flex; align-items: center; gap: 9px; padding: 6px 7px; cursor: pointer; border-radius: var(--r-sm); transition: background 0.15s; }
-.legend-all-row:hover { background: var(--fog); }
-.legend-all-label { font-size: 12px; font-weight: 600; color: var(--ink); }
+.legend-all-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+  transition: background 0.15s, transform 0.08s;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.02));
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.legend-all-row:active { transform: translateY(1px); }
+.legend-all-row:hover { background: rgba(0,0,0,0.06); }
+.legend-all-label { font-size: 13px; font-weight: 800; color: var(--ocean); display: inline-flex; align-items: center; gap: 8px; }
+
+.legend-all-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--ease-spring);
+  color: var(--ocean);
+}
+
+.legend-all-chevron.down {
+  transform: rotate(180deg);
+}
+
+/* make the row show an accessible focus ring when focused via keyboard */
+.legend-all-row:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26,107,138,0.18), var(--sh-xs);
+  border-color: var(--ocean);
+}
 .legend-separator { height: 1px; background: var(--b-soft); margin: 5px 0; }
 
 .legend-item-row { display: flex; align-items: center; gap: 9px; padding: 6px 7px; cursor: pointer; border-radius: var(--r-sm); transition: all 0.2s var(--ease-out); }
 .legend-item-row:hover { background: var(--fog); }
 .legend-item-row.faded { opacity: 0.3; }
-.legend-checkbox { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid var(--b-firm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
-.legend-checkbox.checked { border-color: transparent; }
+.legend-checkbox { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--b-firm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; color: var(--ocean); }
+.legend-checkbox.checked { border-color: transparent; color: var(--gold-bright); }
+.legend-checkbox svg path { stroke: currentColor; }
 .legend-dash { width: 22px; height: 3px; border-radius: 99px; flex-shrink: 0; }
 .legend-item-label { font-size: 12px; font-weight: 500; color: var(--ink-soft); white-space: nowrap; }
 
 .legend-markers-section { padding: 2px 7px 4px; }
 .legend-markers-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage); margin-bottom: 6px; }
+.circuit-highlight-star { display: inline-flex; align-items: center; justify-content: center; color: var(--gold-bright); margin-right: 6px; font-size: 0.95em; line-height: 1; }
 .legend-marker-row { display: flex; align-items: center; gap: 9px; padding: 3px 0; }
 .legend-marker-dot { border-radius: 50%; flex-shrink: 0; }
 .legend-marker-dot.large { width: 12px; height: 12px; background: var(--gold-bright); border: 2px solid rgba(255,255,255,0.7); box-shadow: 0 0 0 2px rgba(212,160,26,0.3); }
@@ -787,4 +824,1047 @@ html, body {
   .header-center { display: none; }
   .header-meta { display: none; }
   .map-legend-panel { bottom: 60px; right: 10px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MADAGASCAR EXPLORER — Responsive Design System
+   Breakpoints: xs(<480) sm(<640) md(<768) lg(<1024) xl(<1280)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── VARIABLES RESPONSIVE ──────────────────────────────────────── */
+:root {
+  --brochure-width: 440px;
+  --header-height: 62px;
+  --panel-transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   LARGE DESKTOP  ≥ 1440px — Brochure plus large, stats enrichies
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1440px) {
+  .brochure {
+    width: 480px;
+  }
+
+  .brand-title {
+    font-size: 19px;
+    letter-spacing: 2px;
+  }
+
+  .map-header {
+    height: 68px;
+    padding: 0 36px;
+  }
+
+  .header-stat-value {
+    font-size: 21px;
+  }
+
+  .brochure-hero {
+    height: 280px;
+  }
+
+  .brochure-hero .brochure-city-name {
+    font-size: 40px;
+  }
+
+  .brochure-emoji {
+    font-size: 64px;
+  }
+
+  .route-hero-name {
+    font-size: 30px;
+  }
+
+  .brochure-body {
+    padding: 42px 36px;
+    gap: 36px;
+  }
+
+  .map-legend-panel {
+    min-width: 230px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DESKTOP STANDARD  1024px – 1439px — Comportement par défaut
+   (styles de base déjà en place, ajustements fins ici)
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .brochure {
+    width: 440px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   TABLETTE PAYSAGE  768px – 1023px
+   Brochure plus étroite, header compact
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --brochure-width: 380px;
+  }
+
+  .brochure {
+    width: 380px;
+  }
+
+  .map-header {
+    padding: 0 20px;
+    height: 58px;
+  }
+
+  .brand-title {
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+
+  .brand-emblem {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header-tagline {
+    font-size: 11px;
+  }
+
+  .header-divider-line {
+    width: 28px;
+  }
+
+  .header-stat-value {
+    font-size: 16px;
+  }
+
+  .header-stat-label {
+    font-size: 8px;
+  }
+
+  .brochure-hero {
+    height: 210px;
+  }
+
+  .brochure-hero .brochure-city-name {
+    font-size: 28px;
+  }
+
+  .brochure-emoji {
+    font-size: 44px;
+  }
+
+  .brochure-body {
+    padding: 28px 24px;
+    gap: 26px;
+  }
+
+  .brochure-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .route-hero-name {
+    font-size: 22px;
+  }
+
+  .map-legend-panel {
+    bottom: 40px;
+    right: 12px;
+    min-width: 188px;
+  }
+
+  .map-hint {
+    font-size: 12px;
+    bottom: 28px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   TABLETTE PORTRAIT  640px – 767px
+   Brochure en overlay plein écran, header simplifié
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 640px) and (max-width: 767px) {
+  :root {
+    --header-height: 54px;
+  }
+
+  .app-shell {
+    overflow: hidden;
+  }
+
+  .map-header {
+    height: 54px;
+    padding: 0 18px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .header-center {
+    display: none;
+  }
+
+  .header-meta {
+    gap: 14px;
+  }
+
+  .header-stat-value {
+    font-size: 15px;
+  }
+
+  .brand-title {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .brand-emblem {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* Brochure : drawer depuis le bas (plein écran) */
+  .brochure {
+    position: fixed;
+    top: 54px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: calc(100vh - 54px);
+    border-right: none;
+    border-top: 1px solid var(--b-mid);
+    border-radius: 0;
+    transform: translateY(100%);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 -8px 40px rgba(13, 27, 17, 0.14);
+    z-index: 500;
+  }
+
+  .brochure.open {
+    transform: translateY(0);
+  }
+
+  /* Drag handle visuel en haut */
+  .brochure::before {
+    content: '';
+    display: block;
+    width: 44px;
+    height: 4px;
+    background: var(--b-firm);
+    border-radius: var(--r-pill);
+    margin: 14px auto 0;
+    flex-shrink: 0;
+  }
+
+  .brochure-hero {
+    height: 200px;
+  }
+
+  .brochure-hero .brochure-city-name {
+    font-size: 28px;
+  }
+
+  .brochure-body {
+    padding: 24px 22px;
+    gap: 22px;
+  }
+
+  .brochure-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat-icon-wrap {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+  }
+
+  .stat-value {
+    font-size: 13px;
+  }
+
+  .map-legend-panel {
+    bottom: 52px;
+    right: 10px;
+    min-width: 176px;
+  }
+
+  .map-hint {
+    font-size: 11.5px;
+    padding: 8px 16px;
+    bottom: 24px;
+  }
+
+  .legend-item-label {
+    font-size: 11px;
+  }
+
+  .map-legend-panel {
+    font-size: 11px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE GRAND  480px – 639px
+   ══════════════════════════════════════════════════════════════════ */
+@media (min-width: 480px) and (max-width: 639px) {
+  :root {
+    --header-height: 52px;
+  }
+
+  .map-header {
+    height: 52px;
+    padding: 0 16px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .header-center,
+  .header-meta {
+    display: none;
+  }
+
+  /* Icône uniquement sur mobile, titre masqué */
+  .brand-sub {
+    display: none;
+  }
+
+  .brand-title {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-emblem {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-emblem-inner {
+    font-size: 16px;
+  }
+
+  /* Brochure : bottom sheet */
+  .brochure {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: calc(100vh - 52px);
+    border-right: none;
+    border-radius: 0;
+    transform: translateY(100%);
+    transition: var(--panel-transition);
+    box-shadow: 0 -6px 30px rgba(13, 27, 17, 0.14);
+    z-index: 500;
+  }
+
+  .brochure.open {
+    transform: translateY(0);
+  }
+
+  .brochure::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: var(--b-firm);
+    border-radius: var(--r-pill);
+    margin: 12px auto 0;
+  }
+
+  .brochure-hero {
+    height: 180px;
+    padding: 20px 22px;
+  }
+
+  .brochure-hero .brochure-city-name {
+    font-size: 26px;
+  }
+
+  .brochure-emoji {
+    font-size: 40px;
+  }
+
+  .brochure-body {
+    padding: 22px 18px;
+    gap: 20px;
+  }
+
+  .brochure-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .stat-icon-wrap {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+  }
+
+  .stat-value {
+    font-size: 12.5px;
+  }
+
+  .highlight-item {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .brochure-description {
+    font-size: 13.5px;
+    line-height: 1.8;
+    padding: 16px 18px;
+  }
+
+  /* Route hero compact */
+  .route-hero-section {
+    padding: 32px 22px 24px;
+  }
+
+  .route-hero-name {
+    font-size: 20px;
+  }
+
+  .route-hero-subtitle {
+    font-size: 11px;
+  }
+
+  /* Légende plus petite */
+  .map-legend-panel {
+    bottom: 46px;
+    right: 8px;
+    min-width: 164px;
+  }
+
+  .legend-title {
+    font-size: 10px;
+  }
+
+  .legend-item-label {
+    font-size: 11px;
+  }
+
+  /* Hint masqué sur mobile petit */
+  .map-hint {
+    display: none;
+  }
+
+  /* Étapes timeline plus compactes */
+  .etape-timeline {
+    padding-left: 28px;
+  }
+
+  .etape-content {
+    padding: 14px;
+  }
+
+  .etape-nom {
+    font-size: 14px;
+  }
+
+  .etape-description {
+    font-size: 13px;
+  }
+
+  /* Empty state */
+  .empty-title {
+    font-size: 19px;
+  }
+
+  .empty-desc {
+    font-size: 13px;
+  }
+
+  .empty-illustration {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 22px;
+  }
+
+  .empty-compass {
+    font-size: 38px;
+  }
+
+  .ring-2 { width: 80px; height: 80px; }
+  .ring-3 { width: 108px; height: 108px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE COMPACT  < 480px  (iPhone SE, petits Android)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 479px) {
+  :root {
+    --header-height: 50px;
+  }
+
+  .map-header {
+    height: 50px;
+    padding: 0 14px;
+    grid-template-columns: auto 1fr;
+  }
+
+  .header-center,
+  .header-meta {
+    display: none;
+  }
+
+  .brand-title,
+  .brand-sub {
+    display: none; /* Logo seul sur très petit écran */
+  }
+
+  .brand-emblem {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brand-emblem-inner {
+    font-size: 14px;
+  }
+
+  /* Brochure : bottom sheet plein écran */
+  .brochure {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    border-right: none;
+    border-radius: 0;
+    transform: translateY(100%);
+    transition: var(--panel-transition);
+    box-shadow: 0 -6px 24px rgba(13, 27, 17, 0.18);
+    z-index: 500;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .brochure.open {
+    transform: translateY(0);
+  }
+
+  /* Drag handle */
+  .brochure::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 3px;
+    background: var(--b-firm);
+    border-radius: var(--r-pill);
+    margin: 10px auto 0;
+  }
+
+  /* Hero compact */
+  .brochure-hero {
+    height: 160px;
+    padding: 16px 18px;
+  }
+
+  .brochure-hero .brochure-city-name {
+    font-size: 22px;
+  }
+
+  .brochure-emoji {
+    font-size: 34px;
+  }
+
+  .hero-badge {
+    font-size: 9px;
+    padding: 4px 10px;
+    letter-spacing: 1.5px;
+  }
+
+  .brochure-region {
+    font-size: 11px;
+  }
+
+  .brochure-body {
+    padding: 18px 16px;
+    gap: 18px;
+  }
+
+  /* Stats : une seule colonne sur très petit écran */
+  .brochure-stats {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 12px 14px;
+  }
+
+  .brochure-description {
+    font-size: 13px;
+    line-height: 1.75;
+    padding: 14px 16px;
+  }
+
+  .highlight-item {
+    padding: 10px 12px;
+    font-size: 12.5px;
+    gap: 12px;
+  }
+
+  .highlight-num {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+
+  /* Section titles */
+  .brochure-section .section-title {
+    font-size: 15px;
+    gap: 10px;
+  }
+
+  /* Route panel */
+  .route-hero-section {
+    padding: 28px 18px 20px;
+  }
+
+  .route-hero-name {
+    font-size: 19px;
+  }
+
+  .route-hero-subtitle {
+    font-size: 10.5px;
+  }
+
+  .circuit-description-hero {
+    font-size: 12.5px;
+  }
+
+  .route-quick-stats {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .route-stat {
+    font-size: 11px;
+  }
+
+  .circuit-itinerary-banner {
+    padding: 12px;
+  }
+
+  .circuit-highlight-card {
+    padding: 14px 16px;
+    margin-top: 12px;
+  }
+
+  .circuit-highlight-text {
+    font-size: 12.5px;
+  }
+
+  /* Timeline étapes */
+  .etape-timeline {
+    padding-left: 26px;
+  }
+
+  .etape-timeline-line {
+    left: 9px;
+  }
+
+  .etape-node {
+    width: 20px;
+    height: 20px;
+    left: -28px;
+    font-size: 10px;
+  }
+
+  .etape-content {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .etape-nom {
+    font-size: 13.5px;
+    margin-bottom: 6px;
+  }
+
+  .etape-description {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+
+  .etape-section {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .etape-section-label {
+    font-size: 9px;
+    margin-bottom: 6px;
+  }
+
+  .etape-item {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .etape-card {
+    margin-bottom: 22px;
+  }
+
+  /* Légende : très compacte */
+  .map-legend-panel {
+    bottom: 16px;
+    right: 8px;
+    min-width: 152px;
+  }
+
+  .legend-title {
+    font-size: 9.5px;
+    letter-spacing: 1px;
+  }
+
+  .legend-item-label {
+    font-size: 10.5px;
+  }
+
+  .legend-body {
+    padding: 6px;
+  }
+
+  .legend-item-row {
+    padding: 5px 6px;
+  }
+
+  .legend-all-label {
+    font-size: 12px;
+  }
+
+  .legend-markers-title {
+    font-size: 8px;
+  }
+
+  /* Hint caché */
+  .map-hint {
+    display: none;
+  }
+
+  /* Empty state compact */
+  .empty-illustration {
+    width: 86px;
+    height: 86px;
+    margin-bottom: 18px;
+  }
+
+  .empty-compass {
+    font-size: 30px;
+  }
+
+  .ring-1 { width: 54px; height: 54px; }
+  .ring-2 { width: 72px; height: 72px; }
+  .ring-3 { width: 92px; height: 92px; }
+
+  .empty-title {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  .empty-desc {
+    font-size: 12.5px;
+    max-width: 240px;
+    margin-bottom: 18px;
+  }
+
+  .empty-chips {
+    gap: 6px;
+  }
+
+  .empty-chip {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  /* Bouton fermer repositionné */
+  .brochure-close {
+    top: 18px;
+    right: 18px;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   UTILITAIRES TRANSVERSAUX — Accessibilité & Touch
+   ══════════════════════════════════════════════════════════════════ */
+
+/* Zone tactile minimum 44px sur tout élément interactif mobile */
+@media (max-width: 767px) {
+  .legend-item-row {
+    min-height: 40px;
+  }
+
+  .legend-all-row {
+    min-height: 44px;
+  }
+
+  .brochure-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Scroll fluide iOS */
+  .brochure {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Évite le rebond du scroll sur iOS derrière la brochure */
+  body.brochure-active {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Masque le hint sur mobile */
+  .map-hint {
+    display: none;
+  }
+
+  /* Légende : reset position pour mobile */
+  .map-legend-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    left: auto;
+    transform: none;
+  }
+
+  /* Ajout d'un backdrop semi-transparent derrière la brochure sur mobile */
+  .brochure-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 27, 17, 0.32);
+    z-index: 499;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .brochure-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   HAUTEUR ÉCRAN RÉDUITE  (ex: iPhone landscape, laptop 768px)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-height: 600px) {
+  .brochure-hero {
+    height: 140px;
+    padding: 14px 22px;
+  }
+
+  .brochure-hero .brochure-city-name {
+    font-size: 22px;
+  }
+
+  .brochure-emoji {
+    font-size: 32px;
+  }
+
+  .brochure-body {
+    gap: 16px;
+    padding-top: 16px;
+  }
+
+  .hero-badge {
+    margin-bottom: 4px;
+    padding: 4px 10px;
+    font-size: 9px;
+  }
+
+  .route-hero-section {
+    padding: 24px 22px 16px;
+  }
+
+  .route-hero-name {
+    font-size: 20px;
+  }
+
+  .empty-illustration {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 14px;
+  }
+
+  .empty-compass {
+    font-size: 28px;
+  }
+
+  .ring-1 { width: 50px; height: 50px; }
+  .ring-2 { width: 66px; height: 66px; }
+  .ring-3 { width: 84px; height: 84px; }
+
+  .empty-title {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .empty-desc {
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE PAYSAGE  (hauteur < 500px + largeur > 600px)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-height: 500px) and (min-width: 600px) {
+  .brochure {
+    width: 360px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+  }
+
+  .brochure.open {
+    transform: translateX(0);
+  }
+
+  .brochure::before {
+    display: none; /* Pas de drag handle en mode paysage */
+  }
+
+  .map-header {
+    height: 48px;
+    padding: 0 14px;
+    grid-template-columns: 1fr auto;
+  }
+
+  .header-center {
+    display: none;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 12px;
+  }
+
+  .header-stat-value {
+    font-size: 14px;
+  }
+
+  .header-stat-label {
+    font-size: 8px;
+  }
+
+  .brand-emblem {
+    width: 28px;
+    height: 28px;
+  }
+
+  .brand-title {
+    font-size: 12px;
+  }
+
+  .brochure-hero {
+    height: 120px;
+    padding: 12px 18px;
+  }
+
+  .brochure-hero .brochure-city-name {
+    font-size: 20px;
+  }
+
+  .brochure-emoji {
+    font-size: 28px;
+  }
+
+  .brochure-body {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .brochure-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .map-legend-panel {
+    bottom: 12px;
+    right: 10px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PREFERS REDUCED MOTION — accessibilité
+   ══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .brochure,
+  .brochure-backdrop,
+  .brand-emblem-ring,
+  .brochure-emoji,
+  .empty-ring,
+  .empty-compass,
+  .highlight-item,
+  .stat-card,
+  .legend-toggle {
+    animation: none !important;
+    transition-duration: 0.15s !important;
+  }
+
+  .brochure {
+    transition: transform 0.2s ease !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PRINT — désactive la carte, imprime la brochure seule
+   ══════════════════════════════════════════════════════════════════ */
+@media print {
+  .map-wrapper,
+  .map-legend-panel,
+  .map-hint,
+  .brochure-close {
+    display: none !important;
+  }
+
+  .app-shell {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+
+  .brochure {
+    position: static;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+  }
+
+  .main-container {
+    display: block;
+    overflow: visible;
+  }
+
+  .brochure-hero {
+    height: auto;
+    min-height: 160px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
 }
