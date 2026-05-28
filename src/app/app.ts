@@ -916,8 +916,15 @@ export class App implements OnInit, OnDestroy {
       this.selectedCity.set(null);
       this.activePanel.set('circuit');
       this.brochureOpen.set(true);
-    });
 
+      // ← Retour en haut du panel à l'ouverture du circuit
+      setTimeout(() => {
+        const brochureEl = document.querySelector('.brochure') as HTMLElement;
+        if (brochureEl) {
+          brochureEl.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 50);
+    });
     return { layer, halo };
   }
 
