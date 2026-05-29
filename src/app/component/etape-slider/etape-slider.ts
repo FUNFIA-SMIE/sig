@@ -25,8 +25,11 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
         (touchend)="onTouchEnd($event)"
       >
         <!-- Skeleton pendant le chargement -->
+        <!-- Spinner pendant le chargement -->
         @if (loading()) {
-          <div class="etape-img-skeleton"></div>
+          <div class="etape-img-spinner-wrapper">
+            <div class="etape-img-spinner"></div>
+          </div>
         }
 
         <!-- Track masqué tant que l'image n'est pas prête -->
@@ -60,23 +63,36 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
         <!-- Bouton précédent -->
         @if (images.length > 1) {
           <button class="etape-img-btn prev" (click)="prev()" aria-label="Image précédente">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
-              stroke-width="1.8" stroke-linecap="round">
+            <svg
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
               <path d="M7.5 2L4 6l3.5 4" />
             </svg>
           </button>
 
           <!-- Bouton suivant -->
           <button class="etape-img-btn next" (click)="next()" aria-label="Image suivante">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
-              stroke-width="1.8" stroke-linecap="round">
+            <svg
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
               <path d="M4.5 2L8 6l-3.5 4" />
             </svg>
           </button>
 
           <!-- Dots -->
-          <div class="etape-img-dots" role="tablist"
-            [attr.aria-label]="'Navigation images ' + etapeNom">
+          <div
+            class="etape-img-dots"
+            role="tablist"
+            [attr.aria-label]="'Navigation images ' + etapeNom"
+          >
             @for (img of images; track img.url; let i = $index) {
               <button
                 class="etape-img-dot"
@@ -95,7 +111,6 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
   `,
 })
 export class EtapeSlider implements OnInit, OnDestroy {
-
   @Input({ required: true }) etapeNom!: string;
   @Input() color: string = '#3A5445';
   @Input() autoplayDelay: number = 4500;
