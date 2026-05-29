@@ -1,14 +1,11 @@
 import {
-  Component,
-  Input,
-  OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  signal,
+  Component, Input, OnInit, OnDestroy,
+  ChangeDetectionStrategy, ChangeDetectorRef, signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
+
+
 
 @Component({
   selector: 'app-etape-slider',
@@ -24,15 +21,13 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
         (touchstart)="onTouchStart($event)"
         (touchend)="onTouchEnd($event)"
       >
-        <!-- Skeleton pendant le chargement -->
-        <!-- Spinner pendant le chargement -->
+        <!-- Spinner uniquement si même le thumb n'est pas prêt -->
         @if (loading()) {
           <div class="etape-img-spinner-wrapper">
             <div class="etape-img-spinner"></div>
           </div>
         }
 
-        <!-- Track masqué tant que l'image n'est pas prête -->
         <div
           class="etape-img-track"
           [style.transform]="'translateX(' + -currentIndex() * 100 + '%)'"
@@ -41,13 +36,28 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
         >
           @for (img of images; track img.url; let i = $index) {
             <div class="etape-img-slide">
+
+              <!-- ① Thumbnail (placeholder flou) — toujours présent -->
               <img
+                class="etape-img-thumb"
+                [src]="img.thumbnailUrl || img.url"
+                [alt]="''"
+                aria-hidden="true"
+                [style.opacity]="fullLoaded()[i] ? '0' : '1'"
+              />
+
+              <!-- ② Image originale — crossfade quand prête -->
+              <img
+                class="etape-img-full"
                 [src]="img.url"
                 [alt]="img.caption || etapeNom"
-                (load)="onImageLoad(i)"
+                [style.opacity]="fullLoaded()[i] ? '1' : '0'"
+                (load)="onFullLoad(i)"
                 (error)="onImageError(i)"
               />
+
               <div class="etape-img-overlay"></div>
+
               @if (img.caption && currentIndex() === i) {
                 <p class="etape-img-caption">{{ img.caption }}</p>
               }
@@ -57,42 +67,29 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
 
         <!-- Compteur -->
         @if (images.length > 1) {
-          <span class="etape-img-counter">{{ currentIndex() + 1 }} / {{ images.length }}</span>
+          <span class="etape-img-counter">
+            {{ currentIndex() + 1 }} / {{ images.length }}
+          </span>
         }
 
         <!-- Bouton précédent -->
         @if (images.length > 1) {
           <button class="etape-img-btn prev" (click)="prev()" aria-label="Image précédente">
-            <svg
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-            >
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round">
               <path d="M7.5 2L4 6l3.5 4" />
             </svg>
           </button>
 
-          <!-- Bouton suivant -->
           <button class="etape-img-btn next" (click)="next()" aria-label="Image suivante">
-            <svg
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-            >
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round">
               <path d="M4.5 2L8 6l-3.5 4" />
             </svg>
           </button>
 
-          <!-- Dots -->
-          <div
-            class="etape-img-dots"
-            role="tablist"
-            [attr.aria-label]="'Navigation images ' + etapeNom"
-          >
+          <div class="etape-img-dots" role="tablist"
+               [attr.aria-label]="'Navigation images ' + etapeNom">
             @for (img of images; track img.url; let i = $index) {
               <button
                 class="etape-img-dot"
@@ -117,7 +114,8 @@ export class EtapeSlider implements OnInit, OnDestroy {
 
   images: EtapeImage[] = [];
   currentIndex = signal(0);
-  loading = signal(true);
+  loading    = signal(true);   // spinner initial (avant même le thumb)
+  fullLoaded = signal<boolean[]>([]); // true[i] = original chargé pour l'image i
 
   private autoplayTimer: ReturnType<typeof setInterval> | null = null;
   private touchStartX = 0;
@@ -126,9 +124,7 @@ export class EtapeSlider implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.images = ETAPE_IMAGES[this.etapeNom] ?? [];
-
-    // ✅ Préchargement immédiat de toutes les images via new Image()
-    // Aucun lazy loading — les images sont en cache quand l'utilisateur swipe
+    this.fullLoaded.set(this.images.map(() => false));
     this.preloadImages();
 
     if (this.images.length > 1 && this.autoplayDelay > 0) {
@@ -141,6 +137,7 @@ export class EtapeSlider implements OnInit, OnDestroy {
   }
 
   // ── Préchargement ─────────────────────────────────────────────
+
   private preloadImages(): void {
     if (this.images.length === 0) {
       this.loading.set(false);
@@ -148,57 +145,64 @@ export class EtapeSlider implements OnInit, OnDestroy {
     }
 
     this.images.forEach((img, i) => {
-      const image = new Image();
+      // — Étape 1 : thumbnail (ou url si pas de thumb)
+      const thumb = new Image();
 
-      image.onload = () => {
-        // Dès que la 1ère image est prête → masquer skeleton
+      thumb.onload = () => {
+        // Dès que le thumb[0] est prêt → cacher le spinner
         if (i === 0) {
           this.loading.set(false);
           this.cdr.markForCheck();
         }
+        // — Étape 2 : lancer le chargement de l'original en arrière-plan
+        this.loadFull(img, i);
       };
 
-      image.onerror = () => {
-        this.images = this.images.filter((_, idx) => idx !== i);
-        if (this.currentIndex() >= this.images.length) {
-          this.currentIndex.set(Math.max(0, this.images.length - 1));
-        }
+      thumb.onerror = () => {
+        // Thumb KO → essayer directement l'original
         if (i === 0) {
           this.loading.set(false);
           this.cdr.markForCheck();
         }
+        this.loadFull(img, i);
       };
 
-      // Lance le téléchargement immédiatement (toutes les images en parallèle)
-      image.src = img.url;
+      thumb.src = img.thumbnailUrl || img.url;
     });
   }
 
-  // ── Navigation ────────────────────────────────────────────────
-  next(): void {
-    this.goTo((this.currentIndex() + 1) % this.images.length);
-    this.resetAutoplay();
+  private loadFull(img: EtapeImage, i: number): void {
+    const full = new Image();
+
+    full.onload = () => {
+      const updated = [...this.fullLoaded()];
+      updated[i] = true;
+      this.fullLoaded.set(updated);
+      this.cdr.markForCheck();
+    };
+
+    full.onerror = () => this.onImageError(i);
+
+    full.src = img.url;
   }
 
-  prev(): void {
-    this.goTo((this.currentIndex() - 1 + this.images.length) % this.images.length);
-    this.resetAutoplay();
-  }
+  // ── Callbacks DOM ─────────────────────────────────────────────
 
-  goTo(index: number): void {
-    this.currentIndex.set(index);
-  }
-
-  // ── Fallback load/error sur les <img> du DOM ──────────────────
-  onImageLoad(index: number): void {
+  /** Déclenché si le <img class="etape-img-full"> se charge avant le preload */
+  onFullLoad(index: number): void {
+    const updated = [...this.fullLoaded()];
+    updated[index] = true;
+    this.fullLoaded.set(updated);
     if (index === 0) {
       this.loading.set(false);
-      this.cdr.markForCheck();
     }
+    this.cdr.markForCheck();
   }
 
   onImageError(index: number): void {
     this.images = this.images.filter((_, i) => i !== index);
+    const updated = this.fullLoaded().filter((_, i) => i !== index);
+    this.fullLoaded.set(updated);
     if (this.currentIndex() >= this.images.length) {
       this.currentIndex.set(Math.max(0, this.images.length - 1));
     }
@@ -206,11 +210,13 @@ export class EtapeSlider implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-  // ── Touch / swipe mobile ──────────────────────────────────────
-  onTouchStart(e: TouchEvent): void {
-    this.touchStartX = e.changedTouches[0].clientX;
-  }
+  // ── Navigation ────────────────────────────────────────────────
+  next(): void { this.goTo((this.currentIndex() + 1) % this.images.length); this.resetAutoplay(); }
+  prev(): void { this.goTo((this.currentIndex() - 1 + this.images.length) % this.images.length); this.resetAutoplay(); }
+  goTo(index: number): void { this.currentIndex.set(index); }
 
+  // ── Touch / swipe ─────────────────────────────────────────────
+  onTouchStart(e: TouchEvent): void { this.touchStartX = e.changedTouches[0].clientX; }
   onTouchEnd(e: TouchEvent): void {
     const dx = e.changedTouches[0].clientX - this.touchStartX;
     if (Math.abs(dx) < 30) return;
@@ -224,14 +230,9 @@ export class EtapeSlider implements OnInit, OnDestroy {
       this.cdr.markForCheck();
     }, this.autoplayDelay);
   }
-
   private stopAutoplay(): void {
-    if (this.autoplayTimer) {
-      clearInterval(this.autoplayTimer);
-      this.autoplayTimer = null;
-    }
+    if (this.autoplayTimer) { clearInterval(this.autoplayTimer); this.autoplayTimer = null; }
   }
-
   private resetAutoplay(): void {
     if (this.autoplayDelay > 0 && this.images.length > 1) {
       this.stopAutoplay();

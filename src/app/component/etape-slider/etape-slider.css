@@ -240,3 +240,30 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* Les deux images sont superposées */
+.etape-img-slide {
+  position: relative;
+}
+
+.etape-img-thumb,
+.etape-img-full {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+/* Thumb : filtre flou pour l'effet placeholder */
+.etape-img-thumb {
+  filter: blur(8px);
+  transform: scale(1.05); /* cache les bords flous */
+  z-index: 1;
+}
+
+/* Full : par-dessus le thumb, fade-in piloté par [style.opacity] */
+.etape-img-full {
+  z-index: 2;
+}

@@ -8,6 +8,8 @@ export interface EtapeImage {
   url: string; // chemin relatif depuis /assets/ ou URL absolue
   caption?: string; // légende optionnelle affichée sous l'image
   credit?: string; // crédit photo (ex: "© Unsplash")
+  thumbnailUrl?: string; // ex: 200px wide, ~2-5 KB
+
 }
 
 export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
