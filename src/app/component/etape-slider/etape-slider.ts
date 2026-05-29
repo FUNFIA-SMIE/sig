@@ -6,7 +6,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   signal,
-  computed,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
@@ -25,22 +24,23 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
         (touchstart)="onTouchStart($event)"
         (touchend)="onTouchEnd($event)"
       >
-        <!-- Skeleton pendant le chargement de la première image -->
+        <!-- Skeleton pendant le chargement -->
         @if (loading()) {
           <div class="etape-img-skeleton"></div>
         }
 
-        <!-- Track de défilement -->
+        <!-- Track masqué tant que l'image n'est pas prête -->
         <div
           class="etape-img-track"
           [style.transform]="'translateX(' + -currentIndex() * 100 + '%)'"
+          [style.opacity]="loading() ? '0' : '1'"
+          style="transition: transform 0.35s ease, opacity 0.3s ease"
         >
           @for (img of images; track img.url; let i = $index) {
             <div class="etape-img-slide">
               <img
                 [src]="img.url"
                 [alt]="img.caption || etapeNom"
-                loading="lazy"
                 (load)="onImageLoad(i)"
                 (error)="onImageError(i)"
               />
@@ -52,44 +52,31 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
           }
         </div>
 
-        <!-- Compteur (ex: "2 / 3") -->
+        <!-- Compteur -->
         @if (images.length > 1) {
-          <span class="etape-img-counter"> {{ currentIndex() + 1 }} / {{ images.length }} </span>
+          <span class="etape-img-counter">{{ currentIndex() + 1 }} / {{ images.length }}</span>
         }
 
         <!-- Bouton précédent -->
         @if (images.length > 1) {
           <button class="etape-img-btn prev" (click)="prev()" aria-label="Image précédente">
-            <svg
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-            >
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round">
               <path d="M7.5 2L4 6l3.5 4" />
             </svg>
           </button>
 
           <!-- Bouton suivant -->
           <button class="etape-img-btn next" (click)="next()" aria-label="Image suivante">
-            <svg
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-            >
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="1.8" stroke-linecap="round">
               <path d="M4.5 2L8 6l-3.5 4" />
             </svg>
           </button>
 
-          <!-- Dots de navigation -->
-          <div
-            class="etape-img-dots"
-            role="tablist"
-            [attr.aria-label]="'Navigation images ' + etapeNom"
-          >
+          <!-- Dots -->
+          <div class="etape-img-dots" role="tablist"
+            [attr.aria-label]="'Navigation images ' + etapeNom">
             @for (img of images; track img.url; let i = $index) {
               <button
                 class="etape-img-dot"
@@ -107,15 +94,10 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
     }
   `,
 })
-export class EtapeSlider {
+export class EtapeSlider implements OnInit, OnDestroy {
 
-  /** Nom de l'étape — utilisé comme clé dans ETAPE_IMAGES */
   @Input({ required: true }) etapeNom!: string;
-
-  /** Couleur du circuit parente (utilisée pour les dots actifs) */
   @Input() color: string = '#3A5445';
-
-  /** Délai du diaporama automatique en ms. 0 = désactivé */
   @Input() autoplayDelay: number = 4500;
 
   images: EtapeImage[] = [];
@@ -129,6 +111,11 @@ export class EtapeSlider {
 
   ngOnInit(): void {
     this.images = ETAPE_IMAGES[this.etapeNom] ?? [];
+
+    // ✅ Préchargement immédiat de toutes les images via new Image()
+    // Aucun lazy loading — les images sont en cache quand l'utilisateur swipe
+    this.preloadImages();
+
     if (this.images.length > 1 && this.autoplayDelay > 0) {
       this.startAutoplay();
     }
@@ -136,6 +123,40 @@ export class EtapeSlider {
 
   ngOnDestroy(): void {
     this.stopAutoplay();
+  }
+
+  // ── Préchargement ─────────────────────────────────────────────
+  private preloadImages(): void {
+    if (this.images.length === 0) {
+      this.loading.set(false);
+      return;
+    }
+
+    this.images.forEach((img, i) => {
+      const image = new Image();
+
+      image.onload = () => {
+        // Dès que la 1ère image est prête → masquer skeleton
+        if (i === 0) {
+          this.loading.set(false);
+          this.cdr.markForCheck();
+        }
+      };
+
+      image.onerror = () => {
+        this.images = this.images.filter((_, idx) => idx !== i);
+        if (this.currentIndex() >= this.images.length) {
+          this.currentIndex.set(Math.max(0, this.images.length - 1));
+        }
+        if (i === 0) {
+          this.loading.set(false);
+          this.cdr.markForCheck();
+        }
+      };
+
+      // Lance le téléchargement immédiatement (toutes les images en parallèle)
+      image.src = img.url;
+    });
   }
 
   // ── Navigation ────────────────────────────────────────────────
@@ -153,13 +174,15 @@ export class EtapeSlider {
     this.currentIndex.set(index);
   }
 
-  // ── Chargement des images ─────────────────────────────────────
+  // ── Fallback load/error sur les <img> du DOM ──────────────────
   onImageLoad(index: number): void {
-    if (index === 0) this.loading.set(false);
+    if (index === 0) {
+      this.loading.set(false);
+      this.cdr.markForCheck();
+    }
   }
 
   onImageError(index: number): void {
-    // Retire l'image cassée de la liste
     this.images = this.images.filter((_, i) => i !== index);
     if (this.currentIndex() >= this.images.length) {
       this.currentIndex.set(Math.max(0, this.images.length - 1));
@@ -175,7 +198,7 @@ export class EtapeSlider {
 
   onTouchEnd(e: TouchEvent): void {
     const dx = e.changedTouches[0].clientX - this.touchStartX;
-    if (Math.abs(dx) < 30) return; // seuil minimum
+    if (Math.abs(dx) < 30) return;
     dx < 0 ? this.next() : this.prev();
   }
 
@@ -200,6 +223,4 @@ export class EtapeSlider {
       this.startAutoplay();
     }
   }
-
-
 }

@@ -23,6 +23,7 @@ export interface CircuitLayer {
   layer: any;
   halo: any;
   itinMarkers: any[]; // Marqueurs des villes d'itinéraire
+  labelMarker: any;
 }
 
 // Base de données des coordonnées des villes d'itinéraire
@@ -705,6 +706,7 @@ export class App implements OnInit, OnDestroy {
           layer: cl.layer,
           halo: cl.halo,
           itinMarkers,
+          labelMarker: cl.labelMarker
         });
         console.log(`✅ ${circuit.name} chargé`);
       } catch (err) {
@@ -818,116 +820,123 @@ export class App implements OnInit, OnDestroy {
     };
   }
 
-  private drawCircuit(L: any, data: any, circuit: any): { layer: any; halo: any } {
-    const drawData = circuit.offset ? this.applyOffset(data, circuit.offset) : data;
+private drawCircuit(L: any, data: any, circuit: any): { layer: any; halo: any; labelMarker: any } {
+  const drawData = circuit.offset ? this.applyOffset(data, circuit.offset) : data;
+  let labelMarker: any = null;
 
-    const halo = L.geoJSON(drawData, {
-      style: { color: circuit.color, weight: 22, opacity: 0.1, lineJoin: 'round' },
-      interactive: false,
-    }).addTo(this.map);
+  const halo = L.geoJSON(drawData, {
+    style: { color: circuit.color, weight: 22, opacity: 0.1, lineJoin: 'round' },
+    interactive: false,
+  }).addTo(this.map);
 
-    const layer = L.geoJSON(drawData, {
-      style: {
-        color: circuit.color,
-        weight: 4.5,
-        opacity: 0.92,
-        lineCap: 'round',
-        lineJoin: 'round',
-      },
-    }).addTo(this.map);
+  const layer = L.geoJSON(drawData, {
+    style: {
+      color: circuit.color,
+      weight: 4.5,
+      opacity: 0.92,
+      lineCap: 'round',
+      lineJoin: 'round',
+    },
+  }).addTo(this.map);
 
-    // Label circuit centré
-    try {
-      // ── Récupère le dernier point du tracé ──────────────────────────────
-      const allPoints: [number, number][] = [];
-      drawData.features.forEach((feature: any) => {
-        const geom = feature.geometry;
-        if (geom.type === 'LineString') {
-          geom.coordinates.forEach((c: any) => allPoints.push([c[1], c[0]]));
-        } else if (geom.type === 'MultiLineString') {
-          geom.coordinates.forEach((line: any) =>
-            line.forEach((c: any) => allPoints.push([c[1], c[0]])),
-          );
-        }
-      });
-
-      //if (allPoints.length === 0);
-
-      // Dernier point = fin du circuit
-      const endPt = allPoints[allPoints.length - 1];
-      const labelLatLng = L.latLng(endPt[0], endPt[1]);
-
-      // ── Style du label ──────────────────────────────────────────────────
-      const darkColorMap: Record<string, string> = {
-        '#48CAE4': '#148FAA',
-        '#C77DFF': '#7B42C4',
-        '#74C69D': '#2A7A4F',
-        '#F4A261': '#A05A2C',
-        '#FFD60A': '#8A7010',
-      };
-      const textColor = darkColorMap[circuit.color] ?? '#1E3326';
-      const borderColor = circuit.color + '66';
-
-      const labelIcon = L.divIcon({
-        className: '',
-        html: `<div style="
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      padding: 4px 10px 4px 6px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.88);
-      border: 0.5px solid ${borderColor};
-      color: ${textColor};
-      pointer-events: none;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    ">
-      <span style="
-        width: 6px; height: 6px;
-        border-radius: 50%;
-        background: ${circuit.color};
-        flex-shrink: 0;
-        display: inline-block;
-      "></span>
-      ${circuit.name}
-    </div>`,
-        // Ancré à gauche du label, légèrement décalé du point
-        iconAnchor: [-12, 10],
-      });
-
-      L.marker(labelLatLng, { icon: labelIcon, interactive: false }).addTo(this.map);
-    } catch (e) {}
-
-    layer.on('mouseover', () => {
-      layer.setStyle({ weight: 8, opacity: 1 });
-      layer.bringToFront();
+  // Label circuit — créé mais NON ajouté à la carte
+  try {
+    const allPoints: [number, number][] = [];
+    drawData.features.forEach((feature: any) => {
+      const geom = feature.geometry;
+      if (geom.type === 'LineString') {
+        geom.coordinates.forEach((c: any) => allPoints.push([c[1], c[0]]));
+      } else if (geom.type === 'MultiLineString') {
+        geom.coordinates.forEach((line: any) =>
+          line.forEach((c: any) => allPoints.push([c[1], c[0]])),
+        );
+      }
     });
-    layer.on('mouseout', () => layer.setStyle({ weight: 4.5, opacity: 0.92 }));
-    layer.on('click', (e: any) => {
-      L.DomEvent?.stopPropagation(e);
-      this.selectedCircuit.set(circuit);
-      this.selectedCity.set(null);
-      this.activePanel.set('circuit');
-      this.brochureOpen.set(true);
 
-      // ← Retour en haut du panel à l'ouverture du circuit
-      setTimeout(() => {
-        const brochureEl = document.querySelector('.brochure') as HTMLElement;
-        if (brochureEl) {
-          brochureEl.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      }, 50);
+    const endPt = allPoints[allPoints.length - 1];
+    const labelLatLng = L.latLng(endPt[0], endPt[1]);
+
+    const darkColorMap: Record<string, string> = {
+      '#48CAE4': '#148FAA',
+      '#C77DFF': '#7B42C4',
+      '#74C69D': '#2A7A4F',
+      '#F4A261': '#A05A2C',
+      '#FFD60A': '#8A7010',
+    };
+    const textColor = darkColorMap[circuit.color] ?? '#1E3326';
+    const borderColor = circuit.color + '66';
+
+    const labelIcon = L.divIcon({
+      className: '',
+      html: `<div style="
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding: 4px 10px 4px 6px;
+        border-radius: 4px;
+        background: rgba(255,255,255,0.88);
+        border: 0.5px solid ${borderColor};
+        color: ${textColor};
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      ">
+        <span style="
+          width: 6px; height: 6px;
+          border-radius: 50%;
+          background: ${circuit.color};
+          flex-shrink: 0;
+          display: inline-block;
+        "></span>
+        ${circuit.name}
+      </div>`,
+      iconAnchor: [-12, 10],
     });
-    return { layer, halo };
-  }
 
+    // ✅ Créé mais PAS ajouté à la carte
+    labelMarker = L.marker(labelLatLng, { icon: labelIcon, interactive: false });
+
+  } catch (e) {}
+
+  layer.on('mouseover', () => {
+    layer.setStyle({ weight: 8, opacity: 1 });
+    layer.bringToFront();
+  });
+
+  layer.on('mouseout', () => layer.setStyle({ weight: 4.5, opacity: 0.92 }));
+
+  layer.on('click', (e: any) => {
+    L.DomEvent?.stopPropagation(e);
+    this.selectedCircuit.set(circuit);
+    this.selectedCity.set(null);
+    this.activePanel.set('circuit');
+    this.brochureOpen.set(true);
+
+    // ✅ Afficher uniquement le label du circuit cliqué
+    this.circuitLayers.forEach((cl) => {
+      if (cl.labelMarker) {
+        if (cl.circuit.name === circuit.name) {
+          cl.labelMarker.addTo(this.map);
+        } else {
+          try { this.map.removeLayer(cl.labelMarker); } catch (e) {}
+        }
+      }
+    });
+
+    setTimeout(() => {
+      const brochureEl = document.querySelector('.brochure') as HTMLElement;
+      if (brochureEl) brochureEl.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
+  });
+
+  return { layer, halo, labelMarker };
+}
   toggleCircuit(cl: CircuitLayer): void {
     cl.visible = !cl.visible;
     if (cl.visible) {
