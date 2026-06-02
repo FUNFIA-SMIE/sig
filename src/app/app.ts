@@ -27,6 +27,7 @@ export interface CircuitLayer {
 }
 
 // Base de données des coordonnées des villes d'itinéraire
+/*
 const CITY_COORDS: Record<string, [number, number]> = {
   'Antananarivo (Tana)': [-18.9249, 47.5185],
   Andasibe: [-18.9733, 48.4125],
@@ -52,7 +53,7 @@ const CITY_COORDS: Record<string, [number, number]> = {
   Andavadoaka: [-22.0667, 43.2833],
   'Andringitra & Tsaranoro': [-22.25, 46.9167],
 };
-
+*/
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -62,7 +63,7 @@ const CITY_COORDS: Record<string, [number, number]> = {
 })
 export class App implements OnInit, OnDestroy {
   protected readonly title = signal('Madagascar Explorer');
-
+  CITY_COORDS: Record<string, [number, number]> = {};
   private map: any;
   private L: any;
   selectedCity = signal<City | null>(null);
@@ -604,8 +605,34 @@ export class App implements OnInit, OnDestroy {
     private http: HttpClient,
   ) {}
 
-  ngOnInit(): void {}
+ngOnInit(): void {
+  this.http.get<any>('geojson/VilleetVillageMadagascar.geojson').subscribe(geojson => {
+    this.CITY_COORDS = Object.fromEntries(
+      geojson.features.map((feature: any) => [
+        feature.properties.Nom,
+        [feature.geometry.coordinates[1], feature.geometry.coordinates[0]]
+      ])
+    );
 
+    // ✅ Aliases : noms dans circuitConfig → noms dans le GeoJSON
+    const aliases: Record<string, string> = {
+      'Antananarivo (Tana)':     'Antananarivo',
+      'Mahajanga (Majunga)':     'Majunga',
+      'Tsingy de Bemaraha':      'Bekopaka Tsingy',
+      'Sahambavy & Lac Hôtel':   'Sahambavy',
+      "Parc National de l'Isalo":'Isalo',
+      'Tuléar (Toliara)':        'Toliara',
+      'Anakao & Nosy Ve':        'Anakao',
+      'Andringitra & Tsaranoro': 'Tsarasaotra', // coordonnées proches
+    };
+
+    for (const [alias, realName] of Object.entries(aliases)) {
+      if (this.CITY_COORDS[realName]) {
+        this.CITY_COORDS[alias] = this.CITY_COORDS[realName];
+      }
+    }
+  });
+}
   async ngAfterViewInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
 
@@ -619,7 +646,7 @@ export class App implements OnInit, OnDestroy {
     const all = new Set<string>();
     this.circuitConfig.forEach((c) => {
       c.etapes?.forEach((e: any) => {
-        if (CITY_COORDS[e.nom]) all.add(e.nom);
+        if (this.CITY_COORDS[e.nom]) all.add(e.nom);
       });
     });
     return all.size;
@@ -722,7 +749,7 @@ export class App implements OnInit, OnDestroy {
 
     circuit.etapes.forEach((etape: any) => {
       if (!etape?.nom) return; // ← guard contre le undefined (virgule parasite dans Sud-Ouest)
-      const coords = CITY_COORDS[etape.nom];
+      const coords = this.CITY_COORDS[etape.nom];
       if (!coords) return;
 
       const dotIcon = L.divIcon({
