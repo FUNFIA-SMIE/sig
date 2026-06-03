@@ -1,4 +1,4 @@
-import { Component, signal, PLATFORM_ID, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, signal, PLATFORM_ID, Inject, OnDestroy, OnInit, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -407,6 +407,37 @@ export class App implements OnInit, OnDestroy {
           restaurants: ['Le Pavé (cuisine française)', 'Café de la Gare', 'Le Glacier'],
         },
         {
+          nom: 'Andasibe',
+          description: "Royaume de l'Indri-Indri dans la forêt tropicale.",
+          activites: [
+            "Observation de l'Indri-Indri",
+            'Réserve de Peyrieras',
+            'Parc VAKONA',
+            'Randonnée nocturne',
+          ],
+          hotels: ["Hôtel Feon'ny Ala ★★★", 'Mantadia Lodge ★★★', 'Vakona Forest Lodge ★★★★'],
+          restaurants: ["Restaurant Feon'ny Ala", 'La Terrasse Verte'],
+        },
+        {
+          nom: 'Ambatolampy',
+          description: "Hauts Plateaux, ateliers artisanaux d'aluminium.",
+          activites: ['Fonderies artisanales', 'Poterie traditionnelle', 'Panoramas rizières'],
+          hotels: ['Hôtel Les Orchidées', 'Gîte communautaire'],
+          restaurants: ['Restaurant local du marché'],
+        },
+        {
+          nom: 'Antsirabe',
+          description: 'Ville des eaux, pousse-pousse et artisanat à 1 500 m.',
+          activites: [
+            'Sources thermales',
+            'Tour en pousse-pousse',
+            'Ateliers de gemmes',
+            'Lacs volcaniques',
+          ],
+          hotels: ['Royal Palace Hôtel ★★★', 'Hôtel Truchet ★★★'],
+          restaurants: ['Spicy Grill', 'Restaurant de la Station'],
+        },
+        {
           nom: 'Ambositra',
           description:
             "Capitale de l'artisanat malgache, bois sculptés en chefs-d'œuvre zafimaniry.",
@@ -479,6 +510,19 @@ export class App implements OnInit, OnDestroy {
           restaurants: ['Restaurant du Relais de la Reine', "La Terrasse de l'Isalo Rock"],
         },
         {
+          nom: 'Ilakaka',
+          description:
+            "Ville minière née du saphir, Ilakaka est un arrêt fascinant pour comprendre la fièvre des pierres précieuses qui s'est emparée de cette région. Des centaines de mineurs creusent chaque jour à la recherche de la précieuse gemme bleue. Une étape unique dans son genre !",
+          activites: [
+            "Visite d'une mine de saphirs artisanale",
+            'Observation du travail des chercheurs de gemmes',
+            'Achat de pierres précieuses brutes ou taillées',
+            'Découverte du musée des minéraux',
+          ],
+          hotels: ["Hôtel Saphir d'Ilakaka", 'Auberge du Mineur'],
+          restaurants: ['Restaurant La Pépite', "Snack Gemmes d'Or"],
+        },
+        {
           nom: 'Tuléar (Toliara)',
           description: '"Porte du Grand Sud", traversée par le Tropique du Capricorne.',
           activites: [
@@ -546,6 +590,66 @@ export class App implements OnInit, OnDestroy {
           ],
           restaurants: ['Le Pavé (cuisine française)', 'Café de la Gare', 'Le Glacier'],
         },
+        {
+          nom: 'Andasibe',
+          description: "Royaume de l'Indri-Indri dans la forêt tropicale.",
+          activites: [
+            "Observation de l'Indri-Indri",
+            'Réserve de Peyrieras',
+            'Parc VAKONA',
+            'Randonnée nocturne',
+          ],
+          hotels: ["Hôtel Feon'ny Ala ★★★", 'Mantadia Lodge ★★★', 'Vakona Forest Lodge ★★★★'],
+          restaurants: ["Restaurant Feon'ny Ala", 'La Terrasse Verte'],
+        },
+        {
+          nom: 'Ambatolampy',
+          description: "Hauts Plateaux, ateliers artisanaux d'aluminium.",
+          activites: ['Fonderies artisanales', 'Poterie traditionnelle', 'Panoramas rizières'],
+          hotels: ['Hôtel Les Orchidées', 'Gîte communautaire'],
+          restaurants: ['Restaurant local du marché'],
+        },
+        {
+          nom: 'Antsirabe',
+          description: 'Ville des eaux, pousse-pousse et artisanat à 1 500 m.',
+          activites: [
+            'Sources thermales',
+            'Tour en pousse-pousse',
+            'Ateliers de gemmes',
+            'Lacs volcaniques',
+          ],
+          hotels: ['Royal Palace Hôtel ★★★', 'Hôtel Truchet ★★★'],
+          restaurants: ['Spicy Grill', 'Restaurant de la Station'],
+        },
+        {
+          nom: 'Miandrivazo',
+          description: 'Point de départ des descentes mythiques du Tsiribihina.',
+          activites: [
+            'Descente du fleuve en pirogue',
+            'Observation faune fluviale',
+            'Coucher de soleil',
+          ],
+          hotels: ['Hôtel Princesse de Tsiribihina ★★', 'Bungalows de la Rivière'],
+          restaurants: ["Restaurant de l'Hôtel Princesse"],
+        },
+        {
+          nom: 'Morondava',
+          description: "Le temple des baobabs ! L'Allée des Baobabs millénaires.",
+          activites: ['Coucher de soleil Allée des Baobabs', 'Baobab Amoureux', 'Forêt de Kirindy'],
+          hotels: ['Hôtel Le Vezo Beach ★★★', 'Akiba Lodge ★★★', 'Palissandre Côte Ouest ★★★★'],
+          restaurants: ['Le Coucher du Soleil', 'Restaurant du Vezo Beach'],
+        },
+        {
+          nom: 'Tsingy de Bemaraha',
+          description: 'Patrimoine Mondial UNESCO, forêt de calcaire aux aiguilles acérées.',
+          activites: [
+            'Trekking Grands et Petits Tsingy',
+            'Navigation gorges du Manambolo',
+            'Observation lémurs',
+          ],
+          hotels: ['Olympe de Bemaraha ★★★', 'Karibo Lodge'],
+          restaurants: ["Restaurant de l'Olympe", 'La Clairière'],
+        },
 
         {
           nom: 'Belo sur Mer',
@@ -584,15 +688,166 @@ export class App implements OnInit, OnDestroy {
           restaurants: ['Restaurant Laguna Blu (buffet fruits de mer)', 'Chez Noro'],
         },
         {
-          nom: 'Andringitra & Tsaranoro',
-          description: 'Pic Boby (2 658 m), deuxième sommet de Madagascar, paradis des grimpeurs.',
+          nom: 'Ambatomilo',
+          description: "Face à l'une des plus belles barrières coralliennes de Madagascar.",
           activites: [
-            'Ascension du Pic Boby (2 658 m)',
-            'Trekking dans le massif',
-            'Escalade parois de granit Tsaranoro',
+            'Snorkeling barrière corallienne',
+            "Baignade mer d'Émeraude",
+            'Plages sauvages',
           ],
-          hotels: ['Camp Catta ★★★', 'Bungalows de Namoly'],
-          restaurants: ['Restaurant du Camp Catta', 'Cuisine de camp'],
+          hotels: ['Mamirano Lodge ★★★', 'Laguna Blu Resort'],
+          restaurants: ['Restaurant du Mamirano Lodge', 'Cuisine de la Laguna Blu'],
+        },
+        {
+          nom: 'Tuléar (Toliara)',
+          description: '"Porte du Grand Sud", traversée par le Tropique du Capricorne.',
+          activites: [
+            "Arboretum d'Antsokay",
+            'Monument du Tropique du Capricorne',
+            'Parc Reniala',
+            'Plongée récifs coralliens',
+          ],
+          hotels: ['Hôtel Moringa ★★★', 'Hôtel Le Dauphin ★★★'],
+          restaurants: ['Restaurant Moringa', 'Le Corail (fruits de mer)'],
+        },
+        {
+          nom: 'Anakao & Nosy Ve',
+          description: 'Village de pêcheurs vezo préservé sur une plage de sable blanc.',
+          activites: [
+            "Baignade plage d'Anakao",
+            'Snorkeling à Nosy Ve',
+            'Pique-nique avec pêcheurs vezo',
+          ],
+          hotels: ['Hôtel Anakao Ocean Lodge ★★★', 'Safari Vezo Bungalows'],
+          restaurants: ["Restaurant de l'Anakao Lodge", 'Chez Vezo'],
+        },
+        {
+          nom: 'Ilakaka',
+          description:
+            "Ville minière née du saphir, Ilakaka est un arrêt fascinant pour comprendre la fièvre des pierres précieuses qui s'est emparée de cette région. Des centaines de mineurs creusent chaque jour à la recherche de la précieuse gemme bleue. Une étape unique dans son genre !",
+          activites: [
+            "Visite d'une mine de saphirs artisanale",
+            'Observation du travail des chercheurs de gemmes',
+            'Achat de pierres précieuses brutes ou taillées',
+            'Découverte du musée des minéraux',
+          ],
+          hotels: ["Hôtel Saphir d'Ilakaka", 'Auberge du Mineur'],
+          restaurants: ['Restaurant La Pépite', "Snack Gemmes d'Or"],
+        },
+        {
+          nom: "Parc National de l'Isalo",
+          description:
+            'Le Grand Canyon malgache ! Formations de grès, canyons et piscines naturelles.',
+          activites: [
+            "Trekking canyons de l'Isalo",
+            'Piscines naturelles',
+            "Fenêtre de l'Isalo (coucher de soleil)",
+            'Culture Bara',
+          ],
+          hotels: ['Relais de la Reine ★★★★', 'Isalo Rock Lodge ★★★★★', 'Hôtel Jardin du Roy ★★★'],
+          restaurants: ['Restaurant du Relais de la Reine', "La Terrasse de l'Isalo Rock"],
+        },
+
+        {
+          nom: 'Ambalavao',
+          description: "Papier Antaimoro, soieries et lémurs catta au Parc d'Anja.",
+          activites: [
+            'Papier Antaimoro',
+            'Soie sauvage',
+            "Parc Communautaire d'Anja",
+            'Marché aux zébus',
+          ],
+          hotels: ['Hôtel Aux Bougainvillées ★★★', 'Camp Catta ★★★'],
+          restaurants: ['Restaurant Aux Bougainvillées', 'Buffet du Camp Catta'],
+        },
+        {
+          nom: 'Fianarantsoa',
+          description: 'Cœur culturel et spirituel de Madagascar, Haute-Ville aux ruelles pavées.',
+          activites: [
+            'Haute-Ville historique (UNESCO)',
+            'Ancienne capitale betsileo',
+            'Dégustation vins malgaches',
+          ],
+          hotels: ['Hôtel Sofia ★★★', 'Cotsoyannis House ★★★'],
+          restaurants: ['Restaurant Sofia', 'Le Bain de Soleil'],
+        },
+        {
+          nom: 'Sahambavy & Lac Hôtel',
+          description: 'La seule plantation de thé de Madagascar dans un cadre enchanteur.',
+          activites: [
+            'Visite plantation de thé',
+            'Balade en barque',
+            'Randonnées collines betsileo',
+          ],
+          hotels: ['Lac Hôtel ★★★ (bungalows sur pilotis)', 'Chez Faniry'],
+          restaurants: ['Restaurant du Lac Hôtel', 'Salon de thé de la plantation'],
+        },
+        {
+          nom: 'Ranomafana',
+          description:
+            'Forêt magique et parc national de renommée mondiale, Ranomafana est un trésor de biodiversité.',
+          activites: [
+            'Trekking dans le Parc National de Ranomafana',
+            'Observation du lémur Milne-Edwards et du Propithèque soyeux',
+            'Randonnée nocturne',
+            'Bains thermaux naturels',
+          ],
+          hotels: ['Hôtel Thermal ★★★', 'Setam Lodge ★★★', 'Domaine Nature Vohiparara'],
+          restaurants: [
+            "Restaurant de l'Hôtel Thermal",
+            'La Pirogue',
+            'Chez Gaspard (cuisine locale)',
+          ],
+        },
+        {
+          nom: 'Ambositra',
+          description:
+            "Capitale de l'artisanat malgache, bois sculptés en chefs-d'œuvre zafimaniry.",
+          activites: [
+            'Ateliers de marqueterie zafimaniry',
+            'Créations en corne de zébu',
+            'Villages zafimaniry',
+            'Marché hebdomadaire',
+          ],
+          hotels: ['Hôtel Prestige ★★★', 'Chez Papillon', 'La Rose des Bois'],
+          restaurants: ['Restaurant Chez Papillon', 'Auberge Betsileo'],
+        },
+        {
+          nom: 'Antsirabe',
+          description: 'Ville des eaux, pousse-pousse et artisanat à 1 500 m.',
+          activites: [
+            'Sources thermales',
+            'Tour en pousse-pousse',
+            'Ateliers de gemmes',
+            'Lacs volcaniques',
+          ],
+          hotels: ['Royal Palace Hôtel ★★★', 'Hôtel Truchet ★★★'],
+          restaurants: ['Spicy Grill', 'Restaurant de la Station'],
+        },
+        {
+          nom: 'Antananarivo (Tana)',
+          description:
+            "Perchée à 1 400 m d'altitude, Antananarivo est la capitale trépidante de Madagascar. Ville haute et ville basse se côtoient entre palais royaux, marchés colorés et ruelles animées. C'est le point de départ idéal pour découvrir l'île rouge.",
+          activites: [
+            'Visite du Palais Royal de Manjakamiadana',
+            'Croc Farm (ferme aux crocodiles)',
+            "Lemurs' Park d'Imerintsiatosika",
+            'Marché artisanal de Digue',
+            'Tour de la ville haute et basse',
+            "Musée d'Art et d'Archéologie",
+          ],
+          hotels: [
+            'Hôtel San Cristobal Boutique ★★★★',
+            'Hôtel Colbert ★★★★',
+            'Palissandre Hôtel ★★★★★',
+            'Le Pavé Boutique Hôtel ★★★',
+          ],
+          restaurants: [
+            'Le Pavé (cuisine française)',
+            'Café de la Gare',
+            'Restaurant Shoprite Ambodivona',
+            'Le Glacier (pizza et spécialités malgaches)',
+          ],
         },
       ],
     },
@@ -605,33 +860,41 @@ export class App implements OnInit, OnDestroy {
     private http: HttpClient,
   ) {}
 
+
+
+
+// Dans ta classe :
+//private platformId = inject(PLATFORM_ID);
+
 ngOnInit(): void {
-  this.http.get<any>('geojson/VilleetVillageMadagascar.geojson').subscribe(geojson => {
-    this.CITY_COORDS = Object.fromEntries(
-      geojson.features.map((feature: any) => [
-        feature.properties.Nom,
-        [feature.geometry.coordinates[1], feature.geometry.coordinates[0]]
-      ])
-    );
+  if (isPlatformBrowser(this.platformId)) {
+    this.http.get<any>('geojson/VilleetVillageMadagascar.geojson').subscribe((geojson) => {
+      this.CITY_COORDS = Object.fromEntries(
+        geojson.features.map((feature: any) => [
+          feature.properties.Nom,
+          [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
+        ]),
+      );
 
-    // ✅ Aliases : noms dans circuitConfig → noms dans le GeoJSON
-    const aliases: Record<string, string> = {
-      'Antananarivo (Tana)':     'Antananarivo',
-      'Mahajanga (Majunga)':     'Majunga',
-      'Tsingy de Bemaraha':      'Bekopaka Tsingy',
-      'Sahambavy & Lac Hôtel':   'Sahambavy',
-      "Parc National de l'Isalo":'Isalo',
-      'Tuléar (Toliara)':        'Toliara',
-      'Anakao & Nosy Ve':        'Anakao',
-      'Andringitra & Tsaranoro': 'Tsarasaotra', // coordonnées proches
-    };
+      // ✅ Aliases : noms dans circuitConfig → noms dans le GeoJSON
+      const aliases: Record<string, string> = {
+        'Antananarivo (Tana)': 'Antananarivo',
+        'Mahajanga (Majunga)': 'Majunga',
+        'Tsingy de Bemaraha': 'Bekopaka Tsingy',
+        'Sahambavy & Lac Hôtel': 'Sahambavy',
+        "Parc National de l'Isalo": 'Isalo',
+        'Tuléar (Toliara)': 'Toliara',
+        'Anakao & Nosy Ve': 'Anakao',
+        'Andringitra & Tsaranoro': 'Tsarasaotra',
+      };
 
-    for (const [alias, realName] of Object.entries(aliases)) {
-      if (this.CITY_COORDS[realName]) {
-        this.CITY_COORDS[alias] = this.CITY_COORDS[realName];
+      for (const [alias, realName] of Object.entries(aliases)) {
+        if (this.CITY_COORDS[realName]) {
+          this.CITY_COORDS[alias] = this.CITY_COORDS[realName];
+        }
       }
-    }
-  });
+    });
+  }
 }
   async ngAfterViewInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -733,7 +996,7 @@ ngOnInit(): void {
           layer: cl.layer,
           halo: cl.halo,
           itinMarkers,
-          labelMarker: cl.labelMarker
+          labelMarker: cl.labelMarker,
         });
         console.log(`✅ ${circuit.name} chargé`);
       } catch (err) {
@@ -847,55 +1110,59 @@ ngOnInit(): void {
     };
   }
 
-private drawCircuit(L: any, data: any, circuit: any): { layer: any; halo: any; labelMarker: any } {
-  const drawData = circuit.offset ? this.applyOffset(data, circuit.offset) : data;
-  let labelMarker: any = null;
+  private drawCircuit(
+    L: any,
+    data: any,
+    circuit: any,
+  ): { layer: any; halo: any; labelMarker: any } {
+    const drawData = circuit.offset ? this.applyOffset(data, circuit.offset) : data;
+    let labelMarker: any = null;
 
-  const halo = L.geoJSON(drawData, {
-    style: { color: circuit.color, weight: 22, opacity: 0.1, lineJoin: 'round' },
-    interactive: false,
-  }).addTo(this.map);
+    const halo = L.geoJSON(drawData, {
+      style: { color: circuit.color, weight: 22, opacity: 0.1, lineJoin: 'round' },
+      interactive: false,
+    }).addTo(this.map);
 
-  const layer = L.geoJSON(drawData, {
-    style: {
-      color: circuit.color,
-      weight: 4.5,
-      opacity: 0.92,
-      lineCap: 'round',
-      lineJoin: 'round',
-    },
-  }).addTo(this.map);
+    const layer = L.geoJSON(drawData, {
+      style: {
+        color: circuit.color,
+        weight: 4.5,
+        opacity: 0.92,
+        lineCap: 'round',
+        lineJoin: 'round',
+      },
+    }).addTo(this.map);
 
-  // Label circuit — créé mais NON ajouté à la carte
-  try {
-    const allPoints: [number, number][] = [];
-    drawData.features.forEach((feature: any) => {
-      const geom = feature.geometry;
-      if (geom.type === 'LineString') {
-        geom.coordinates.forEach((c: any) => allPoints.push([c[1], c[0]]));
-      } else if (geom.type === 'MultiLineString') {
-        geom.coordinates.forEach((line: any) =>
-          line.forEach((c: any) => allPoints.push([c[1], c[0]])),
-        );
-      }
-    });
+    // Label circuit — créé mais NON ajouté à la carte
+    try {
+      const allPoints: [number, number][] = [];
+      drawData.features.forEach((feature: any) => {
+        const geom = feature.geometry;
+        if (geom.type === 'LineString') {
+          geom.coordinates.forEach((c: any) => allPoints.push([c[1], c[0]]));
+        } else if (geom.type === 'MultiLineString') {
+          geom.coordinates.forEach((line: any) =>
+            line.forEach((c: any) => allPoints.push([c[1], c[0]])),
+          );
+        }
+      });
 
-    const endPt = allPoints[allPoints.length - 1];
-    const labelLatLng = L.latLng(endPt[0], endPt[1]);
+      const endPt = allPoints[allPoints.length - 1];
+      const labelLatLng = L.latLng(endPt[0], endPt[1]);
 
-    const darkColorMap: Record<string, string> = {
-      '#48CAE4': '#148FAA',
-      '#C77DFF': '#7B42C4',
-      '#74C69D': '#2A7A4F',
-      '#F4A261': '#A05A2C',
-      '#FFD60A': '#8A7010',
-    };
-    const textColor = darkColorMap[circuit.color] ?? '#1E3326';
-    const borderColor = circuit.color + '66';
+      const darkColorMap: Record<string, string> = {
+        '#48CAE4': '#148FAA',
+        '#C77DFF': '#7B42C4',
+        '#74C69D': '#2A7A4F',
+        '#F4A261': '#A05A2C',
+        '#FFD60A': '#8A7010',
+      };
+      const textColor = darkColorMap[circuit.color] ?? '#1E3326';
+      const borderColor = circuit.color + '66';
 
-    const labelIcon = L.divIcon({
-      className: '',
-      html: `<div style="
+      const labelIcon = L.divIcon({
+        className: '',
+        html: `<div style="
         display: inline-flex;
         align-items: center;
         gap: 5px;
@@ -923,47 +1190,48 @@ private drawCircuit(L: any, data: any, circuit: any): { layer: any; halo: any; l
         "></span>
         ${circuit.name}
       </div>`,
-      iconAnchor: [-12, 10],
+        iconAnchor: [-12, 10],
+      });
+
+      // ✅ Créé mais PAS ajouté à la carte
+      labelMarker = L.marker(labelLatLng, { icon: labelIcon, interactive: false });
+    } catch (e) {}
+
+    layer.on('mouseover', () => {
+      layer.setStyle({ weight: 8, opacity: 1 });
+      layer.bringToFront();
     });
 
-    // ✅ Créé mais PAS ajouté à la carte
-    labelMarker = L.marker(labelLatLng, { icon: labelIcon, interactive: false });
+    layer.on('mouseout', () => layer.setStyle({ weight: 4.5, opacity: 0.92 }));
 
-  } catch (e) {}
+    layer.on('click', (e: any) => {
+      L.DomEvent?.stopPropagation(e);
+      this.selectedCircuit.set(circuit);
+      this.selectedCity.set(null);
+      this.activePanel.set('circuit');
+      this.brochureOpen.set(true);
 
-  layer.on('mouseover', () => {
-    layer.setStyle({ weight: 8, opacity: 1 });
-    layer.bringToFront();
-  });
-
-  layer.on('mouseout', () => layer.setStyle({ weight: 4.5, opacity: 0.92 }));
-
-  layer.on('click', (e: any) => {
-    L.DomEvent?.stopPropagation(e);
-    this.selectedCircuit.set(circuit);
-    this.selectedCity.set(null);
-    this.activePanel.set('circuit');
-    this.brochureOpen.set(true);
-
-    // ✅ Afficher uniquement le label du circuit cliqué
-    this.circuitLayers.forEach((cl) => {
-      if (cl.labelMarker) {
-        if (cl.circuit.name === circuit.name) {
-          cl.labelMarker.addTo(this.map);
-        } else {
-          try { this.map.removeLayer(cl.labelMarker); } catch (e) {}
+      // ✅ Afficher uniquement le label du circuit cliqué
+      this.circuitLayers.forEach((cl) => {
+        if (cl.labelMarker) {
+          if (cl.circuit.name === circuit.name) {
+            cl.labelMarker.addTo(this.map);
+          } else {
+            try {
+              this.map.removeLayer(cl.labelMarker);
+            } catch (e) {}
+          }
         }
-      }
+      });
+
+      setTimeout(() => {
+        const brochureEl = document.querySelector('.brochure') as HTMLElement;
+        if (brochureEl) brochureEl.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 50);
     });
 
-    setTimeout(() => {
-      const brochureEl = document.querySelector('.brochure') as HTMLElement;
-      if (brochureEl) brochureEl.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 50);
-  });
-
-  return { layer, halo, labelMarker };
-}
+    return { layer, halo, labelMarker };
+  }
   toggleCircuit(cl: CircuitLayer): void {
     cl.visible = !cl.visible;
     if (cl.visible) {
