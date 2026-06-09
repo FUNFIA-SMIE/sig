@@ -2,6 +2,7 @@ import { Component, signal, PLATFORM_ID, Inject, OnDestroy, OnInit, inject } fro
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { EtapeSlider } from './component/etape-slider/etape-slider';
 
 export interface City {
@@ -269,6 +270,23 @@ export class App implements OnInit, OnDestroy {
         },
         {
           nom: 'Nosy Be',
+          description:
+            '"L\'île aux Parfums" — plantations d\'ylang-ylang, plages immaculées et eaux turquoise.',
+          activites: [
+            'Snorkeling et plongée à Nosy Sakatia',
+            'Réserve Naturelle de Lokobe',
+            "Tour de l'île en quad",
+            'Mont Passot (coucher de soleil)',
+          ],
+          hotels: ['Villa Mena Hôtel ★★★', 'Long Beach Resort ★★★★', 'Andilana Beach Resort ★★★★★'],
+          restaurants: [
+            "La Terrasse d'Ambatoloaka",
+            'Chez Ndrema (cuisine créole)',
+            'Restaurant du Long Beach Resort',
+          ],
+        },
+        {
+          nom: 'Diego',
           description:
             '"L\'île aux Parfums" — plantations d\'ylang-ylang, plages immaculées et eaux turquoise.',
           activites: [
@@ -849,6 +867,31 @@ export class App implements OnInit, OnDestroy {
             'Le Glacier (pizza et spécialités malgaches)',
           ],
         },
+                {
+          nom: 'Soatanana',
+          description:
+            "Perchée à 1 400 m d'altitude, Antananarivo est la capitale trépidante de Madagascar. Ville haute et ville basse se côtoient entre palais royaux, marchés colorés et ruelles animées. C'est le point de départ idéal pour découvrir l'île rouge.",
+          activites: [
+            'Visite du Palais Royal de Manjakamiadana',
+            'Croc Farm (ferme aux crocodiles)',
+            "Lemurs' Park d'Imerintsiatosika",
+            'Marché artisanal de Digue',
+            'Tour de la ville haute et basse',
+            "Musée d'Art et d'Archéologie",
+          ],
+          hotels: [
+            'Hôtel San Cristobal Boutique ★★★★',
+            'Hôtel Colbert ★★★★',
+            'Palissandre Hôtel ★★★★★',
+            'Le Pavé Boutique Hôtel ★★★',
+          ],
+          restaurants: [
+            'Le Pavé (cuisine française)',
+            'Café de la Gare',
+            'Restaurant Shoprite Ambodivona',
+            'Le Glacier (pizza et spécialités malgaches)',
+          ],
+        },
       ],
     },
   ];
@@ -860,42 +903,61 @@ export class App implements OnInit, OnDestroy {
     private http: HttpClient,
   ) {}
 
-
-
-
-// Dans ta classe :
-//private platformId = inject(PLATFORM_ID);
-
-ngOnInit(): void {
-  if (isPlatformBrowser(this.platformId)) {
-    this.http.get<any>('geojson/VilleetVillageMadagascar.geojson').subscribe((geojson) => {
-      this.CITY_COORDS = Object.fromEntries(
-        geojson.features.map((feature: any) => [
+  private buildCityCoordsFromGeojson(geojson: any): Record<string, [number, number]> {
+    if (!geojson?.features) return {};
+    return Object.fromEntries(
+      geojson.features
+        .filter((feature: any) => feature?.properties?.Nom && feature?.geometry?.coordinates?.length >= 2)
+        .map((feature: any) => [
           feature.properties.Nom,
           [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
         ]),
-      );
-
-      // ✅ Aliases : noms dans circuitConfig → noms dans le GeoJSON
-      const aliases: Record<string, string> = {
-        'Antananarivo (Tana)': 'Antananarivo',
-        'Mahajanga (Majunga)': 'Majunga',
-        'Tsingy de Bemaraha': 'Bekopaka Tsingy',
-        'Sahambavy & Lac Hôtel': 'Sahambavy',
-        "Parc National de l'Isalo": 'Isalo',
-        'Tuléar (Toliara)': 'Toliara',
-        'Anakao & Nosy Ve': 'Anakao',
-        'Andringitra & Tsaranoro': 'Tsarasaotra',
-      };
-
-      for (const [alias, realName] of Object.entries(aliases)) {
-        if (this.CITY_COORDS[realName]) {
-          this.CITY_COORDS[alias] = this.CITY_COORDS[realName];
-        }
-      }
-    });
+    );
   }
-}
+
+  private async loadCityCoords(): Promise<void> {
+    const cityGeojsonFiles = [
+      'geojson/VilleetVillageMadagascar.geojson',
+      'geojson/Soatanana.geojson',
+    ];
+
+    const coordsList = await Promise.all(
+      cityGeojsonFiles.map(async (file) => {
+        try {
+          const geojson = await firstValueFrom(this.http.get<any>(file));
+          return this.buildCityCoordsFromGeojson(geojson);
+        } catch (err) {
+          console.warn(`⚠️ Impossible de charger ${file}`, err);
+          return {};
+        }
+      }),
+    );
+
+    this.CITY_COORDS = coordsList.reduce((acc, coords) => ({ ...acc, ...coords }), {});
+
+    const aliases: Record<string, string> = {
+      'Antananarivo (Tana)': 'Antananarivo',
+      'Mahajanga (Majunga)': 'Majunga',
+      'Tsingy de Bemaraha': 'Bekopaka Tsingy',
+      'Sahambavy & Lac Hôtel': 'Sahambavy',
+      "Parc National de l'Isalo": 'Isalo',
+      'Tuléar (Toliara)': 'Toliara',
+      'Anakao & Nosy Ve': 'Anakao',
+      'Andringitra & Tsaranoro': 'Tsarasaotra',
+    };
+
+    for (const [alias, realName] of Object.entries(aliases)) {
+      if (this.CITY_COORDS[realName]) {
+        this.CITY_COORDS[alias] = this.CITY_COORDS[realName];
+      }
+    }
+  }
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      void this.loadCityCoords();
+    }
+  }
   async ngAfterViewInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
 
