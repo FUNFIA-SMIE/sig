@@ -29,5 +29,6 @@
 { "type": "Feature", "properties": { "fid": 24.0, "Nom": "Nosy Be" }, "geometry": { "type": "Point", "coordinates": [ 48.1861779442849, -13.254501962301516 ] } },
 { "type": "Feature", "properties": { "fid": 25.0, "Nom": "Diego" }, "geometry": { "type": "Point", "coordinates": [ 49.293896159307906, -12.286979235367642 ] } },
 { "type": "Feature", "properties": { "fid": 1.0, "Nom": "Majunga" }, "geometry": { "type": "Point", "coordinates": [ 46.305037794745949, -15.721563799312515 ] } }
+
 ]
 }
