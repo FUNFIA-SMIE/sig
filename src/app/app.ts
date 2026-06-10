@@ -288,18 +288,28 @@ export class App implements OnInit, OnDestroy {
         {
           nom: 'Diego',
           description:
-            '"L\'île aux Parfums" — plantations d\'ylang-ylang, plages immaculées et eaux turquoise.',
+            'Antsiranana, nichée au nord de Madagascar, est célèbre pour sa baie majestueuse, l’une des plus belles du monde entouré de montagnes, de plages sauvages et de paysages volcaniques. Ville cosmopolite et animée, elle reflète un mélange unique de cultures, d’histoire coloniale et de nature spectaculaire.',
           activites: [
-            'Snorkeling et plongée à Nosy Sakatia',
-            'Réserve Naturelle de Lokobe',
-            "Tour de l'île en quad",
-            'Mont Passot (coucher de soleil)',
+            'Plantations cacao',
+            'Cascade Bon Père',
+            "Tsingy calcaires ",
+            'Grottes mystérieuses',
+            "Faune endémique ",
+            "Tsingy rouges ",
+            "Village colonial",
+            "Montagne Ambre",
+            "Lacs volcaniques",
+            "Trois baies"
+
           ],
-          hotels: ['Villa Mena Hôtel ★★★', 'Long Beach Resort ★★★★', 'Andilana Beach Resort ★★★★★'],
+          hotels: ['•Grand Hôtel Diego', 'Nature Lodge', 'Allamanda Hotel','Sakalava Lodge','Kiteparadise Madagascar'],
           restaurants: [
-            "La Terrasse d'Ambatoloaka",
-            'Chez Ndrema (cuisine créole)',
-            'Restaurant du Long Beach Resort',
+            "Le Melville",
+            'Su e Giu',
+            'La Cambusa',
+            "Restaurant La Baie",
+            "TSARA BE VAOVAO",
+            "La Fleur de Sel"
           ],
         },
       ],
@@ -493,15 +503,40 @@ export class App implements OnInit, OnDestroy {
         },
         {
           nom: 'Fianarantsoa',
-          description: 'Cœur culturel et spirituel de Madagascar, Haute-Ville aux ruelles pavées.',
+          description: "Fière ville des Hauts Plateaux, Fianarantsoa qui signifie 'là où l'on apprend le bien' est le cœur culturel et spirituel de Madagascar. Sa Haute-Ville aux ruelles pavées, ses maisons betsileo en briques rouges et son atmosphère studieuse lui confèrent un charme particulier.",
           activites: [
-            'Haute-Ville historique (UNESCO)',
-            'Ancienne capitale betsileo',
-            'Dégustation vins malgaches',
+            'Visite de la Hauteville historique (UNESCO)',
+            "Tour de l'ancienne capitale betsileo",
+            "Visite de l'Église Ambozontany (vue panoramique)",
+            "Dégustation des vins malgaches de Côte Est",
+            "Marché betsileo (soieries, épices)",
+            "Gare ferroviaire historique FCE",
+            "Pirogue Matsiatra",
+            "Village culturelle",
+            "Village de la poterie",
+            "Palais Ialananindro"
           ],
-          hotels: ['Hôtel Sofia ★★★', 'Cotsoyannis House ★★★'],
-          restaurants: ['Restaurant Sofia', 'Le Bain de Soleil'],
+          hotels: [
+            'Zomatel ★★★',
+            'Pietra ★★★',
+            "Manga Blue Guest House",
+            "Mahamanina",
+            "H1",
+            "Three Palms",
+            "Petite Bouffe",
+            "Ambalakilonga(Solidaire)"],
+          restaurants: [
+            'Zomatel ★★★',
+            'Pietra ★★★',
+            "Manga Blue Guest House",
+            "Mahamanina",
+            "Chez Ninie",
+            "Baby Food",
+            "Delice 301",
+            "Petite Bouffe"
+          ],
         },
+
         {
           nom: 'Ambalavao',
           description: "Papier Antaimoro, soieries et lémurs catta au Parc d'Anja.",
@@ -780,14 +815,56 @@ export class App implements OnInit, OnDestroy {
         },
         {
           nom: 'Fianarantsoa',
-          description: 'Cœur culturel et spirituel de Madagascar, Haute-Ville aux ruelles pavées.',
+          description: "Fière ville des Hauts Plateaux, Fianarantsoa qui signifie 'là où l'on apprend le bien' est le cœur culturel et spirituel de Madagascar. Sa Haute-Ville aux ruelles pavées, ses maisons betsileo en briques rouges et son atmosphère studieuse lui confèrent un charme particulier.",
           activites: [
-            'Haute-Ville historique (UNESCO)',
-            'Ancienne capitale betsileo',
-            'Dégustation vins malgaches',
+            'Visite de la Hauteville historique (UNESCO)',
+            "Tour de l'ancienne capitale betsileo",
+            "Visite de l'Église Ambozontany (vue panoramique)",
+            "Dégustation des vins malgaches de Côte Est",
+            "Marché betsileo (soieries, épices)",
+            "Gare ferroviaire historique FCE",
+            "Pirogue Matsiatra",
+            "Village culturelle",
+            "Village de la poterie",
+            "Palais Ialananindro"
           ],
-          hotels: ['Hôtel Sofia ★★★', 'Cotsoyannis House ★★★'],
-          restaurants: ['Restaurant Sofia', 'Le Bain de Soleil'],
+          hotels: [
+            'Zomatel ★★★',
+            'Pietra ★★★',
+            "Manga Blue Guest House",
+            "Mahamanina",
+            "H1",
+            "Three Palms",
+            "Petite Bouffe",
+            "Ambalakilonga(Solidaire)"],
+          restaurants: [
+            'Zomatel ★★★',
+            'Pietra ★★★',
+            "Manga Blue Guest House",
+            "Mahamanina",
+            "Chez Ninie",
+            "Baby Food",
+            "Delice 301",
+            "Petite Bouffe"
+          ],
+        },
+        {
+          nom: 'Soatanana',
+          description:
+            'Soatanana, surnommé le village blanc, est un hameau des Hautes Terres malgaches situé près de Fianarantsoa. Il se distingue par sa communauté religieuse issue du mouvement Fifohazana, dont les habitants portent des habits immaculés symbolisant pureté et foi. Chaque dimanche, la grande messe rassemble la population dans une atmosphère vibrante de chants polyphoniques, faisant de ce lieu un haut centre spirituel et culturel.',
+          activites: [
+            'Office religieux',
+            'Randonnée collines',
+            'Village betsileo',
+            'Photographie cérémonies',
+          ],
+          hotels: ['Maison locale', 'Accueil communautaire', 'Hébergement simple'],
+          restaurants: [
+            'Maison locale',
+            'Accueil communautaire',
+            'Repas partagé',
+            'Cuisine simple',
+          ],
         },
         {
           nom: 'Sahambavy & Lac Hôtel',
@@ -867,31 +944,6 @@ export class App implements OnInit, OnDestroy {
             'Le Glacier (pizza et spécialités malgaches)',
           ],
         },
-                {
-          nom: 'Soatanana',
-          description:
-            "Perchée à 1 400 m d'altitude, Antananarivo est la capitale trépidante de Madagascar. Ville haute et ville basse se côtoient entre palais royaux, marchés colorés et ruelles animées. C'est le point de départ idéal pour découvrir l'île rouge.",
-          activites: [
-            'Visite du Palais Royal de Manjakamiadana',
-            'Croc Farm (ferme aux crocodiles)',
-            "Lemurs' Park d'Imerintsiatosika",
-            'Marché artisanal de Digue',
-            'Tour de la ville haute et basse',
-            "Musée d'Art et d'Archéologie",
-          ],
-          hotels: [
-            'Hôtel San Cristobal Boutique ★★★★',
-            'Hôtel Colbert ★★★★',
-            'Palissandre Hôtel ★★★★★',
-            'Le Pavé Boutique Hôtel ★★★',
-          ],
-          restaurants: [
-            'Le Pavé (cuisine française)',
-            'Café de la Gare',
-            'Restaurant Shoprite Ambodivona',
-            'Le Glacier (pizza et spécialités malgaches)',
-          ],
-        },
       ],
     },
   ];
@@ -907,14 +959,16 @@ export class App implements OnInit, OnDestroy {
     if (!geojson?.features) return {};
     return Object.fromEntries(
       geojson.features
-        .filter((feature: any) => feature?.properties?.Nom && feature?.geometry?.coordinates?.length >= 2)
-        .map((feature: any) => [
-          feature.properties.Nom,
-          [feature.geometry.coordinates[1], feature.geometry.coordinates[0]],
-        ]),
+        .filter((feature: any) => {
+          const nom = feature?.properties?.Nom ?? feature?.properties?.name;
+          return nom && feature?.geometry?.coordinates?.length >= 2;
+        })
+        .map((feature: any) => {
+          const nom = feature.properties.Nom ?? feature.properties.name;
+          return [nom, [feature.geometry.coordinates[1], feature.geometry.coordinates[0]]];
+        }),
     );
   }
-
   private async loadCityCoords(): Promise<void> {
     const cityGeojsonFiles = [
       'geojson/VilleetVillageMadagascar.geojson',
@@ -944,6 +998,7 @@ export class App implements OnInit, OnDestroy {
       'Tuléar (Toliara)': 'Toliara',
       'Anakao & Nosy Ve': 'Anakao',
       'Andringitra & Tsaranoro': 'Tsarasaotra',
+      'Diego':'Antsiranana'
     };
 
     for (const [alias, realName] of Object.entries(aliases)) {

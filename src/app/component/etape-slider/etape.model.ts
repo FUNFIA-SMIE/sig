@@ -9,12 +9,11 @@ export interface EtapeImage {
   caption?: string; // légende optionnelle affichée sous l'image
   credit?: string; // crédit photo (ex: "© Unsplash")
   thumbnailUrl?: string; // ex: 200px wide, ~2-5 KB
-
 }
 
 export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   // ── Tananarive ──────────────────────────────────────────────
-// ── Tananarive ──────────────────────────────────────────────
+  // ── Tananarive ──────────────────────────────────────────────
   'Antananarivo (Tana)': [
     {
       url: '/Photos/Tananarive/PXL_20250817_071546512.RAW-01.COVER.jpg',
@@ -66,8 +65,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     },
   ],
 
-// ── Ambatolampy ─────────────────────────────────────────────
-  'Ambatolampy': [
+  // ── Ambatolampy ─────────────────────────────────────────────
+  Ambatolampy: [
     {
       url: '/Photos/Ambatolampy/PXL_20250817_120117453.RAW-01.COVER.jpg',
       caption: 'Ambatolampy — Photo 1',
@@ -102,8 +101,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     },
   ],
 
-// ── Ranomafana ──────────────────────────────────────────────
-  'Ranomafana': [
+  // ── Ranomafana ──────────────────────────────────────────────
+  Ranomafana: [
     {
       url: '/Photos/Ranomafana/PXL_20241018_112139572.PORTRAIT.jpg',
       caption: 'Ranomafana — Photo 1',
@@ -147,7 +146,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Mahajanga ───────────────────────────────────────────────
-// ── Mahajanga ───────────────────────────────────────────────
+  // ── Mahajanga ───────────────────────────────────────────────
   'Mahajanga (Majunga)': [
     {
       url: '/Photos/Majunga/WhatsApp Image 2026-05-28 at 10.22.45(1).jpeg',
@@ -188,8 +187,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Miandrivazo ─────────────────────────────────────────────
-// ── Miandrivazo ─────────────────────────────────────────────
-  'Miandrivazo': [
+  // ── Miandrivazo ─────────────────────────────────────────────
+  Miandrivazo: [
     {
       url: '/Photos/Miandrivazo/PXL_20250818_103618376.RAW-01.COVER.jpg',
       caption: 'Miandrivazo — Photo 1',
@@ -213,8 +212,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Morondava ───────────────────────────────────────────────
-// ── Morondava ───────────────────────────────────────────────
-  'Morondava': [
+  // ── Morondava ───────────────────────────────────────────────
+  Morondava: [
     {
       url: '/Photos/Morondava/PXL_20250819_143144448.NIGHT.RAW-01.COVER.jpg',
       caption: 'Morondava — Photo 1 (Nuit)',
@@ -282,7 +281,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Tsingy ──────────────────────────────────────────────────
-// ── Tsingy ──────────────────────────────────────────────────
+  // ── Tsingy ──────────────────────────────────────────────────
   'Tsingy de Bemaraha': [
     {
       url: '/Photos/Tsingy/PXL_20250821_054914894.RAW-01.COVER~4.jpg',
@@ -379,8 +378,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Fianarantsoa ────────────────────────────────────────────
-// ── Fianarantsoa ────────────────────────────────────────────
-  'Fianarantsoa': [
+  // ── Fianarantsoa ────────────────────────────────────────────
+  Fianarantsoa: [
     {
       url: '/Photos/Fianarantsoa/DSC_0001.JPG',
       caption: 'Fianarantsoa — Photo 1',
@@ -447,7 +446,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Isalo ───────────────────────────────────────────────────
-// ── Isalo ───────────────────────────────────────────────────
+  // ── Isalo ───────────────────────────────────────────────────
   "Parc National de l'Isalo": [
     {
       url: '/Photos/Isalo/PXL_20250902_104006462.RAW-01.COVER.jpg',
@@ -552,7 +551,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Tuléar ──────────────────────────────────────────────────
-// ── Tuléar ──────────────────────────────────────────────────
+  // ── Tuléar ──────────────────────────────────────────────────
   'Tuléar (Toliara)': [
     {
       url: '/Photos/Tulear/PXL_20241029_122300443.jpg',
@@ -613,8 +612,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Ambatomilo ──────────────────────────────────────────────
-// ── Ambatomilo ──────────────────────────────────────────────
-  'Ambatomilo': [
+  // ── Ambatomilo ──────────────────────────────────────────────
+  Ambatomilo: [
     {
       url: '/Photos/Ambatomilo/PXL_20250731_144640408.PORTRAIT.ORIGINAL.jpg',
       caption: 'Ambatomilo — Photo 1',
@@ -706,7 +705,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Belo sur Mer ────────────────────────────────────────────
-// ── Belo sur Mer ────────────────────────────────────────────
+  // ── Belo sur Mer ────────────────────────────────────────────
   'Belo sur Mer': [
     {
       url: '/Photos/Belo Sur Mer/PXL_20250824_090027835.RAW-01.COVER[2].jpg',
@@ -743,8 +742,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Morombe ─────────────────────────────────────────────────
-// ── Morombe ─────────────────────────────────────────────────
-  'Morombe': [
+  // ── Morombe ─────────────────────────────────────────────────
+  Morombe: [
     {
       url: '/Photos/Morombe/PXL_20250825_142206409.RAW-01.COVER~3 (1).jpg',
       caption: 'Morombe — Photo 1',
@@ -791,8 +790,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     },
   ],
 
-// ── Andavadoaka ─────────────────────────────────────────────
-  'Andavadoaka': [
+  // ── Andavadoaka ─────────────────────────────────────────────
+  Andavadoaka: [
     {
       url: '/Photos/Andavadoaka/PXL_20241026_083815755.PORTRAIT.ORIGINAL.jpg',
       caption: 'Andavadoaka — Photo 1',
@@ -852,6 +851,83 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     {
       url: 'https://images.unsplash.com/photo-1551316679-9c6ae9dec224?w=800&q=80',
       caption: "Trekking dans le massif d'Andringitra",
+    },
+  ],
+
+  Diego: [
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.32.jpeg',
+      caption: 'Diego-Suarez — Photo 1',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.33(1).jpeg',
+      caption: 'Diego-Suarez — Photo 2',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.33.jpeg',
+      caption: 'Diego-Suarez — Photo 3',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.34(1).jpeg',
+      caption: 'Diego-Suarez — Photo 4',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.34(2).jpeg',
+      caption: 'Diego-Suarez — Photo 5',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.34.jpeg',
+      caption: 'Diego-Suarez — Photo 6',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.35(1).jpeg',
+      caption: 'Diego-Suarez — Photo 7',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.35.jpeg',
+      caption: 'Diego-Suarez — Photo 8',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.36(1).jpeg',
+      caption: 'Diego-Suarez — Photo 9',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.36(2).jpeg',
+      caption: 'Diego-Suarez — Photo 10',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.36.jpeg',
+      caption: 'Diego-Suarez — Photo 11',
+    },
+    {
+      url: '/Photos/Diego/WhatsApp Image 2026-06-09 at 17.21.37.jpeg',
+      caption: 'Diego-Suarez — Photo 12',
+    },
+  ],
+  Soatanana: [
+    {
+      url: '/Photos/Soatanana/WhatsApp Image 2026-06-09 at 18.07.41.jpeg',
+      caption: 'Soatanana — Photo 1',
+    },
+    {
+      url: '/Photos/Soatanana/WhatsApp Image 2026-06-09 at 18.07.42(1).jpeg',
+      caption: 'Soatanana — Photo 2',
+    },
+    {
+      url: '/Photos/Soatanana/WhatsApp Image 2026-06-09 at 18.07.42.jpeg',
+      caption: 'Soatanana — Photo 3',
+    },
+    {
+      url: '/Photos/Soatanana/WhatsApp Image 2026-06-09 at 18.07.43(1).jpeg',
+      caption: 'Soatanana — Photo 4',
+    },
+    {
+      url: '/Photos/Soatanana/WhatsApp Image 2026-06-09 at 18.07.43.jpeg',
+      caption: 'Soatanana — Photo 5',
+    },
+    {
+      url: '/Photos/Soatanana/WhatsApp Image 2026-06-09 at 18.07.44.jpeg',
+      caption: 'Soatanana — Photo 6',
     },
   ],
 };
