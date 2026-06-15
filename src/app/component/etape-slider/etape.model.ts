@@ -50,18 +50,27 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Andasibe ────────────────────────────────────────────────
+// ── Andasibe ────────────────────────────────────────────────
   Andasibe: [
     {
-      url: 'Andasibe/',
-      caption: "Forêt tropicale d'Andasibe",
+      url: '/Photos/Andasibe/WhatsApp Image 2026-06-11 at 17.19.15.jpeg',
+      caption: 'Andasibe — Photo 1',
     },
     {
-      url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
-      caption: 'Lémur Indri-Indri dans son milieu naturel',
+      url: '/Photos/Andasibe/WhatsApp Image 2026-06-11 at 17.19.15(1).jpeg',
+      caption: 'Andasibe — Photo 2',
     },
     {
-      url: 'https://images.unsplash.com/photo-1567647753830-de3fe7ce9f28?w=800&q=80',
-      caption: 'Caméléon de Madagascar',
+      url: '/Photos/Andasibe/WhatsApp Image 2026-06-11 at 17.19.16.jpeg',
+      caption: 'Andasibe — Photo 3',
+    },
+    {
+      url: '/Photos/Andasibe/WhatsApp Image 2026-06-11 at 17.19.16(1).jpeg',
+      caption: 'Andasibe — Photo 4',
+    },
+    {
+      url: '/Photos/Andasibe/WhatsApp Image 2026-06-11 at 17.19.16(2).jpeg',
+      caption: 'Andasibe — Photo 5',
     },
   ],
 
@@ -86,18 +95,31 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Antsirabe ───────────────────────────────────────────────
+// ── Antsirabe ──────────────────────────────────────────────
   Antsirabe: [
     {
-      url: 'https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?w=800&q=80',
-      caption: 'Pousse-pousse colorés dans la ville',
+      url: '/Photos/Antsirabe/WhatsApp Image 2026-06-11 at 17.45.46.jpeg',
+      caption: 'Antsirabe — Photo 1',
     },
     {
-      url: 'https://images.unsplash.com/photo-1541690564-b882e0f4d9b2?w=800&q=80',
-      caption: "Sources thermales d'Antsirabe",
+      url: '/Photos/Antsirabe/WhatsApp Image 2026-06-11 at 17.45.47.jpeg',
+      caption: 'Antsirabe — Photo 2',
     },
     {
-      url: 'https://images.unsplash.com/photo-1580281657527-47f249e8f4df?w=800&q=80',
-      caption: 'Lac volcanique de Tritriva',
+      url: '/Photos/Antsirabe/WhatsApp Image 2026-06-11 at 17.45.47(1).jpeg',
+      caption: 'Antsirabe — Photo 3',
+    },
+    {
+      url: '/Photos/Antsirabe/WhatsApp Image 2026-06-11 at 17.45.47(2).jpeg',
+      caption: 'Antsirabe — Photo 4',
+    },
+    {
+      url: '/Photos/Antsirabe/WhatsApp Image 2026-06-11 at 17.45.48.jpeg',
+      caption: 'Antsirabe — Photo 5',
+    },
+    {
+      url: '/Photos/Antsirabe/WhatsApp Image 2026-06-11 at 17.45.48(1).jpeg',
+      caption: 'Antsirabe — Photo 6',
     },
   ],
 
@@ -171,18 +193,31 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Nosy Be ─────────────────────────────────────────────────
+// ── Nosy Be ────────────────────────────────────────────────
   'Nosy Be': [
     {
-      url: 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=800&q=80',
-      caption: 'Eaux turquoise de Nosy Be',
+      url: '/Photos/NosyBe/WhatsApp Image 2026-06-12 at 08.15.44.jpeg',
+      caption: 'Nosy Be — Photo 1',
     },
     {
-      url: 'https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80',
-      caption: 'Récif corallien de Nosy Sakatia',
+      url: '/Photos/NosyBe/WhatsApp Image 2026-06-12 at 08.15.50.jpeg',
+      caption: 'Nosy Be — Photo 2',
     },
     {
-      url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-      caption: "Plage d'Andilana au coucher du soleil",
+      url: '/Photos/NosyBe/WhatsApp Image 2026-06-12 at 08.15.58.jpeg',
+      caption: 'Nosy Be — Photo 3',
+    },
+    {
+      url: '/Photos/NosyBe/WhatsApp Image 2026-06-12 at 08.15.59.jpeg',
+      caption: 'Nosy Be — Photo 4',
+    },
+    {
+      url: '/Photos/NosyBe/WhatsApp Image 2026-06-12 at 08.15.59(1).jpeg',
+      caption: 'Nosy Be — Photo 5',
+    },
+    {
+      url: '/Photos/NosyBe/WhatsApp Image 2026-06-12 at 08.16.00.jpeg',
+      caption: 'Nosy Be — Photo 6',
     },
   ],
 
@@ -367,15 +402,42 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
 
   // ── Sahambavy ───────────────────────────────────────────────
   'Sahambavy & Lac Hôtel': [
-    {
-      url: 'https://images.unsplash.com/photo-1559736531-68ea79e7ef49?w=800&q=80',
-      caption: 'Plantation de thé de Sahambavy',
+{
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-11 at 18.30.49.jpeg',
+      caption: 'Sahambavy — Photo 1',
     },
     {
-      url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-      caption: 'Lac Hôtel — bungalows sur pilotis',
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-11 at 18.30.49(1).jpeg',
+      caption: 'Sahambavy — Photo 2',
     },
-  ],
+    {
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-11 at 18.30.49(2).jpeg',
+      caption: 'Sahambavy — Photo 3',
+    },
+    {
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-11 at 18.30.50.jpeg',
+      caption: 'Sahambavy — Photo 4',
+    },
+    {
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-11 at 18.30.50(1).jpeg',
+      caption: 'Sahambavy — Photo 5',
+    },
+    {
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-12 at 08.13.46.jpeg',
+      caption: 'Sahambavy — Photo 6',
+    },
+    {
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-12 at 08.13.46(1).jpeg',
+      caption: 'Sahambavy — Photo 7',
+    },
+    {
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-12 at 08.13.47.jpeg',
+      caption: 'Sahambavy — Photo 8',
+    },
+    {
+      url: '/Photos/Sahambavy/WhatsApp Image 2026-06-12 at 08.13.47(1).jpeg',
+      caption: 'Sahambavy — Photo 9',
+    },  ],
 
   // ── Fianarantsoa ────────────────────────────────────────────
   // ── Fianarantsoa ────────────────────────────────────────────
@@ -596,22 +658,57 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Anakao ──────────────────────────────────────────────────
+// ── Anakao & Nosy Ve ────────────────────────────────────────
   'Anakao & Nosy Ve': [
     {
-      url: 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=800&q=80',
-      caption: "Village vezo d'Anakao",
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.20.54.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 1',
     },
     {
-      url: 'https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800&q=80',
-      caption: 'Snorkeling à Nosy Ve',
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.20.55.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 2',
     },
     {
-      url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
-      caption: 'Pirogues de pêche traditionnelles vezo',
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.20.55(1).jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 3',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.20.56.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 4',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.20.56(1).jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 5',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.20.57.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 6',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.25.25.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 7',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.25.26.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 8',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.26.57.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 9',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.26.57(1).jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 10',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.26.58.jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 11',
+    },
+    {
+      url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.26.58(1).jpeg',
+      caption: 'Anakao & Nosy Ve — Photo 12',
     },
   ],
-
-  // ── Ambatomilo ──────────────────────────────────────────────
   // ── Ambatomilo ──────────────────────────────────────────────
   Ambatomilo: [
     {
