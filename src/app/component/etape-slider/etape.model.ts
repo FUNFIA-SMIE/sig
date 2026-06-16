@@ -50,7 +50,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Andasibe ────────────────────────────────────────────────
-// ── Andasibe ────────────────────────────────────────────────
+  // ── Andasibe ────────────────────────────────────────────────
   Andasibe: [
     {
       url: '/Photos/Andasibe/WhatsApp Image 2026-06-11 at 17.19.15.jpeg',
@@ -95,7 +95,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Antsirabe ───────────────────────────────────────────────
-// ── Antsirabe ──────────────────────────────────────────────
+  // ── Antsirabe ──────────────────────────────────────────────
   Antsirabe: [
     {
       url: '/Photos/Antsirabe/WhatsApp Image 2026-06-11 at 17.45.46.jpeg',
@@ -154,16 +154,60 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   // ── Manakara ────────────────────────────────────────────────
   Manakara: [
     {
-      url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
-      caption: 'Plage sauvage de Manakara',
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.52.13.jpeg',
+      caption: 'Manakara — Photo 1',
     },
     {
-      url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
-      caption: 'Pirogues sur le canal des Pangalanes',
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.52.14.jpeg',
+      caption: 'Manakara — Photo 2',
     },
     {
-      url: 'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80',
-      caption: 'Le train FCE Fianarantsoa–Côte Est',
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.52.14(1).jpeg',
+      caption: 'Manakara — Photo 3',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.52.14(2).jpeg',
+      caption: 'Manakara — Photo 4',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.52.14(3).jpeg',
+      caption: 'Manakara — Photo 5',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.52.14(4).jpeg',
+      caption: 'Manakara — Photo 6',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.42.jpeg',
+      caption: 'Manakara — Photo 7',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.42(1).jpeg',
+      caption: 'Manakara — Photo 8',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.43.jpeg',
+      caption: 'Manakara — Photo 9',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.44.jpeg',
+      caption: 'Manakara — Photo 10',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.44(1).jpeg',
+      caption: 'Manakara — Photo 11',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.44(2).jpeg',
+      caption: 'Manakara — Photo 12',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.44(3).jpeg',
+      caption: 'Manakara — Photo 13',
+    },
+    {
+      url: '/Photos/Manakara/WhatsApp Image 2026-06-15 at 15.54.44(4).jpeg',
+      caption: 'Manakara — Photo 14',
     },
   ],
 
@@ -193,7 +237,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Nosy Be ─────────────────────────────────────────────────
-// ── Nosy Be ────────────────────────────────────────────────
+  // ── Nosy Be ────────────────────────────────────────────────
   'Nosy Be': [
     {
       url: '/Photos/NosyBe/WhatsApp Image 2026-06-12 at 08.15.44.jpeg',
@@ -391,18 +435,42 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   // ── Ambositra ───────────────────────────────────────────────
   Ambositra: [
     {
-      url: 'https://images.unsplash.com/photo-1504198070170-4ca53bb1c6a0?w=800&q=80',
-      caption: 'Marqueterie zafimaniry',
+      url: '/Photos/Ambositra/IMG-20260615-WA0047.jpg',
+      caption: 'Ambositra — Photo 1',
     },
     {
-      url: 'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80',
-      caption: 'Paysages des Hauts Plateaux betsileo',
+      url: '/Photos/Ambositra/IMG-20260615-WA0048.jpg',
+      caption: 'Ambositra — Photo 2',
+    },
+    {
+      url: '/Photos/Ambositra/IMG-20260615-WA0049.jpg',
+      caption: 'Ambositra — Photo 3',
+    },
+    {
+      url: '/Photos/Ambositra/IMG-20260615-WA0050.jpg',
+      caption: 'Ambositra — Photo 4',
+    },
+    {
+      url: '/Photos/Ambositra/IMG-20260615-WA0051.jpg',
+      caption: 'Ambositra — Photo 5',
+    },
+    {
+      url: '/Photos/Ambositra/IMG-20260615-WA0052.jpg',
+      caption: 'Ambositra — Photo 6',
+    },
+    {
+      url: '/Photos/Ambositra/IMG-20260615-WA0053.jpg',
+      caption: 'Ambositra — Photo 7',
+    },
+    {
+      url: '/Photos/Ambositra/IMG-20260615-WA0054.jpg',
+      caption: 'Ambositra — Photo 8',
     },
   ],
 
   // ── Sahambavy ───────────────────────────────────────────────
   'Sahambavy & Lac Hôtel': [
-{
+    {
       url: '/Photos/Sahambavy/WhatsApp Image 2026-06-11 at 18.30.49.jpeg',
       caption: 'Sahambavy — Photo 1',
     },
@@ -437,7 +505,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     {
       url: '/Photos/Sahambavy/WhatsApp Image 2026-06-12 at 08.13.47(1).jpeg',
       caption: 'Sahambavy — Photo 9',
-    },  ],
+    },
+  ],
 
   // ── Fianarantsoa ────────────────────────────────────────────
   // ── Fianarantsoa ────────────────────────────────────────────
@@ -492,21 +561,25 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     },
   ],
   // ── Ambalavao ───────────────────────────────────────────────
-  Ambalavao: [
-    {
-      url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=80',
-      caption: "Lémurs catta du Parc communautaire d'Anja",
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1504198070170-4ca53bb1c6a0?w=800&q=80',
-      caption: 'Fabrication du papier Antaimoro',
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80',
-      caption: "Marché aux zébus d'Ambalavao",
-    },
-  ],
-
+Ambalavao: [
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0030.jpg', caption: 'Ambalavao — Photo 1' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0031.jpg', caption: 'Ambalavao — Photo 2' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0032.jpg', caption: 'Ambalavao — Photo 3' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0033.jpg', caption: 'Ambalavao — Photo 4' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0034.jpg', caption: 'Ambalavao — Photo 5' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0035.jpg', caption: 'Ambalavao — Photo 6' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0036.jpg', caption: 'Ambalavao — Photo 7' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0037.jpg', caption: 'Ambalavao — Photo 8' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0038.jpg', caption: 'Ambalavao — Photo 9' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0039.jpg', caption: 'Ambalavao — Photo 10' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0040.jpg', caption: 'Ambalavao — Photo 11' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0041.jpg', caption: 'Ambalavao — Photo 12' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0042.jpg', caption: 'Ambalavao — Photo 13' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0043.jpg', caption: 'Ambalavao — Photo 14' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0044.jpg', caption: 'Ambalavao — Photo 15' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0045.jpg', caption: 'Ambalavao — Photo 16' },
+  { url: '/Photos/Ambalavao/IMG-20260615-WA0046.jpg', caption: 'Ambalavao — Photo 17' },
+],
   // ── Isalo ───────────────────────────────────────────────────
   // ── Isalo ───────────────────────────────────────────────────
   "Parc National de l'Isalo": [
@@ -658,7 +731,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   ],
 
   // ── Anakao ──────────────────────────────────────────────────
-// ── Anakao & Nosy Ve ────────────────────────────────────────
+  // ── Anakao & Nosy Ve ────────────────────────────────────────
   'Anakao & Nosy Ve': [
     {
       url: '/Photos/Anakao/WhatsApp Image 2026-06-12 at 12.20.54.jpeg',
@@ -838,7 +911,6 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     },
   ],
 
-  // ── Morombe ─────────────────────────────────────────────────
   // ── Morombe ─────────────────────────────────────────────────
   Morombe: [
     {
@@ -1025,6 +1097,29 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
     {
       url: '/Photos/Soatanana/WhatsApp Image 2026-06-09 at 18.07.44.jpeg',
       caption: 'Soatanana — Photo 6',
+    },
+  ],
+
+  Ilakaka: [
+    {
+      url: '/Photos/Ilakaka/WhatsApp Image 2026-06-15 at 16.46.04.jpeg',
+      caption: 'Ilakaka — Photo 1',
+    },
+    {
+      url: '/Photos/Ilakaka/WhatsApp Image 2026-06-15 at 16.46.04(1).jpeg',
+      caption: 'Ilakaka — Photo 2',
+    },
+    {
+      url: '/Photos/Ilakaka/WhatsApp Image 2026-06-15 at 16.46.04(2).jpeg',
+      caption: 'Ilakaka — Photo 3',
+    },
+    {
+      url: '/Photos/Ilakaka/WhatsApp Image 2026-06-15 at 16.46.57.jpeg',
+      caption: 'Ilakaka — Photo 4',
+    },
+    {
+      url: '/Photos/Ilakaka/WhatsApp Image 2026-06-15 at 17.07.49.jpeg',
+      caption: 'Ilakaka — Photo 5',
     },
   ],
 };

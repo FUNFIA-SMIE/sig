@@ -1,11 +1,14 @@
 import {
-  Component, Input, OnInit, OnDestroy,
-  ChangeDetectionStrategy, ChangeDetectorRef, signal,
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
-
-
 
 @Component({
   selector: 'app-etape-slider',
@@ -36,7 +39,6 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
         >
           @for (img of images; track img.url; let i = $index) {
             <div class="etape-img-slide">
-
               <!-- ① Thumbnail (placeholder flou) — toujours présent -->
               <img
                 class="etape-img-thumb"
@@ -67,29 +69,40 @@ import { ETAPE_IMAGES, EtapeImage } from '../etape-slider/etape.model';
 
         <!-- Compteur -->
         @if (images.length > 1) {
-          <span class="etape-img-counter">
-            {{ currentIndex() + 1 }} / {{ images.length }}
-          </span>
+          <span class="etape-img-counter"> {{ currentIndex() + 1 }} / {{ images.length }} </span>
         }
 
         <!-- Bouton précédent -->
         @if (images.length > 1) {
           <button class="etape-img-btn prev" (click)="prev()" aria-label="Image précédente">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
-                 stroke-width="1.8" stroke-linecap="round">
+            <svg
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
               <path d="M7.5 2L4 6l3.5 4" />
             </svg>
           </button>
 
           <button class="etape-img-btn next" (click)="next()" aria-label="Image suivante">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
-                 stroke-width="1.8" stroke-linecap="round">
+            <svg
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
               <path d="M4.5 2L8 6l-3.5 4" />
             </svg>
           </button>
 
-          <div class="etape-img-dots" role="tablist"
-               [attr.aria-label]="'Navigation images ' + etapeNom">
+          <div
+            class="etape-img-dots"
+            role="tablist"
+            [attr.aria-label]="'Navigation images ' + etapeNom"
+          >
             @for (img of images; track img.url; let i = $index) {
               <button
                 class="etape-img-dot"
@@ -114,7 +127,7 @@ export class EtapeSlider implements OnInit, OnDestroy {
 
   images: EtapeImage[] = [];
   currentIndex = signal(0);
-  loading    = signal(true);   // spinner initial (avant même le thumb)
+  loading = signal(true); // spinner initial (avant même le thumb)
   fullLoaded = signal<boolean[]>([]); // true[i] = original chargé pour l'image i
 
   private autoplayTimer: ReturnType<typeof setInterval> | null = null;
@@ -123,6 +136,8 @@ export class EtapeSlider implements OnInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    console.log('etapeNom reçu:', JSON.stringify(this.etapeNom));
+    console.log('clés dispo:', Object.keys(ETAPE_IMAGES));
     this.images = ETAPE_IMAGES[this.etapeNom] ?? [];
     this.fullLoaded.set(this.images.map(() => false));
     this.preloadImages();
@@ -211,12 +226,22 @@ export class EtapeSlider implements OnInit, OnDestroy {
   }
 
   // ── Navigation ────────────────────────────────────────────────
-  next(): void { this.goTo((this.currentIndex() + 1) % this.images.length); this.resetAutoplay(); }
-  prev(): void { this.goTo((this.currentIndex() - 1 + this.images.length) % this.images.length); this.resetAutoplay(); }
-  goTo(index: number): void { this.currentIndex.set(index); }
+  next(): void {
+    this.goTo((this.currentIndex() + 1) % this.images.length);
+    this.resetAutoplay();
+  }
+  prev(): void {
+    this.goTo((this.currentIndex() - 1 + this.images.length) % this.images.length);
+    this.resetAutoplay();
+  }
+  goTo(index: number): void {
+    this.currentIndex.set(index);
+  }
 
   // ── Touch / swipe ─────────────────────────────────────────────
-  onTouchStart(e: TouchEvent): void { this.touchStartX = e.changedTouches[0].clientX; }
+  onTouchStart(e: TouchEvent): void {
+    this.touchStartX = e.changedTouches[0].clientX;
+  }
   onTouchEnd(e: TouchEvent): void {
     const dx = e.changedTouches[0].clientX - this.touchStartX;
     if (Math.abs(dx) < 30) return;
@@ -231,7 +256,10 @@ export class EtapeSlider implements OnInit, OnDestroy {
     }, this.autoplayDelay);
   }
   private stopAutoplay(): void {
-    if (this.autoplayTimer) { clearInterval(this.autoplayTimer); this.autoplayTimer = null; }
+    if (this.autoplayTimer) {
+      clearInterval(this.autoplayTimer);
+      this.autoplayTimer = null;
+    }
   }
   private resetAutoplay(): void {
     if (this.autoplayDelay > 0 && this.images.length > 1) {
