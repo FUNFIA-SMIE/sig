@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { EtapeSlider } from './component/etape-slider/etape-slider';
-
+import { FormsModule } from '@angular/forms';
 export interface City {
   name: string;
   lat: number;
@@ -58,7 +58,7 @@ const CITY_COORDS: Record<string, [number, number]> = {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, EtapeSlider],
+  imports: [CommonModule, EtapeSlider,FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -1008,11 +1008,13 @@ export class App implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      void this.loadCityCoords();
-    }
+ngOnInit(): void {
+  this.isBrowser.set(isPlatformBrowser(this.platformId));
+
+  if (isPlatformBrowser(this.platformId)) {
+    void this.loadCityCoords();
   }
+}
   async ngAfterViewInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
 
@@ -1480,4 +1482,22 @@ export class App implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.map?.remove();
   }
+
+
+isBrowser = signal(false);
+waOpen = signal(false);
+waCircuit = '';
+waMessage = '';
+
+
+sendWhatsApp(): void {
+  const phone = '261346799213'; // ← votre numéro
+  const circuitPart = this.waCircuit ? `*Circuit : ${this.waCircuit}*\n\n` : '';
+  const fullMessage = `${circuitPart}${this.waMessage}`;
+  const encoded = encodeURIComponent(fullMessage);
+  window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+  this.waOpen.set(false);
+  this.waMessage = '';
+  this.waCircuit = '';
+}
 }

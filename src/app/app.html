@@ -3,11 +3,7 @@
   <header class="map-header">
     <div class="header-brand">
       <div class="brand-emblem">
-        <img
-          class="brand-emblem-inner"
-          src="/icon/WhatsApp_Image_2025-02-07_at_15.30.01-removebg.png"
-          alt=""
-        />
+        <img class="brand-emblem-inner" src="/icon/WhatsApp_Image_2025-02-07_at_15.30.01-removebg.png" alt="" />
         <div class="brand-emblem-ring"></div>
       </div>
       <div class="brand-text">
@@ -47,12 +43,7 @@
     <aside class="brochure" [class.open]="brochureOpen()">
       <button class="brochure-close" (click)="closeBrochure()" aria-label="Fermer">
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <path
-            d="M1 1l8 8M9 1L1 9"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-          />
+          <path d="M1 1l8 8M9 1L1 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
         </svg>
       </button>
 
@@ -61,15 +52,9 @@
         <div class="brochure-hero city-hero">
           <div class="hero-bg-pattern"></div>
           <div class="hero-content">
-            <div
-              class="hero-badge"
-              [style.color]="getCategoryColor(city.category)"
-              [style.border-color]="getCategoryColor(city.category) + '40'"
-            >
-              <span
-                class="hero-badge-dot"
-                [style.background]="getCategoryColor(city.category)"
-              ></span>
+            <div class="hero-badge" [style.color]="getCategoryColor(city.category)"
+              [style.border-color]="getCategoryColor(city.category) + '40'">
+              <span class="hero-badge-dot" [style.background]="getCategoryColor(city.category)"></span>
               {{ getCategoryLabel(city.category) }}
             </div>
             <span class="brochure-emoji">{{ city.image }}</span>
@@ -106,20 +91,13 @@
 
           <div class="brochure-section">
             <h3 class="section-title">
-              <span
-                class="section-accent"
-                [style.background]="getCategoryColor(city.category)"
-              ></span>
+              <span class="section-accent" [style.background]="getCategoryColor(city.category)"></span>
               À ne pas manquer
             </h3>
             <ul class="highlights-list">
               <li *ngFor="let h of city.highlights; let i = index" class="highlight-item">
-                <span
-                  class="highlight-num"
-                  [style.color]="getCategoryColor(city.category)"
-                  [style.border-color]="getCategoryColor(city.category) + '30'"
-                  >{{ i + 1 }}</span
-                >
+                <span class="highlight-num" [style.color]="getCategoryColor(city.category)"
+                  [style.border-color]="getCategoryColor(city.category) + '30'">{{ i + 1 }}</span>
                 {{ h }}
               </li>
             </ul>
@@ -136,12 +114,8 @@
           <div class="route-name-row">
             <div class="route-color-pill" [style.background]="circuit.color">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M2 7 C2 4.2 4.2 2 7 2 C9.8 2 12 4.2 12 7 C12 9.8 9.8 12 7 12"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                />
+                <path d="M2 7 C2 4.2 4.2 2 7 2 C9.8 2 12 4.2 12 7 C12 9.8 9.8 12 7 12" stroke="white" stroke-width="1.5"
+                  stroke-linecap="round" />
                 <circle cx="7" cy="7" r="2" fill="white" />
               </svg>
             </div>
@@ -167,20 +141,12 @@
         </div>
 
         <div class="brochure-body">
-          <div
-            class="circuit-itinerary-banner"
-            *ngIf="circuit.itineraire"
-            [style.border-color]="circuit.color + '50'"
-          >
+          <div class="circuit-itinerary-banner" *ngIf="circuit.itineraire" [style.border-color]="circuit.color + '50'">
             <span class="circuit-itin-label">ITINÉRAIRE</span>
             <p class="circuit-itin-text">{{ circuit.itineraire }}</p>
           </div>
 
-          <div
-            class="circuit-highlight-card"
-            *ngIf="circuit.pointFort"
-            [style.border-left-color]="circuit.color"
-          >
+          <div class="circuit-highlight-card" *ngIf="circuit.pointFort" [style.border-left-color]="circuit.color">
             <p class="circuit-highlight-label">
               <span class="circuit-highlight-star" aria-hidden="true">★</span> Point fort du circuit
             </p>
@@ -192,31 +158,18 @@
             <h3 class="section-title">
               <span class="section-accent" [style.background]="circuit.color"></span>
               Étapes du circuit
-              <span
-                class="etape-count-badge"
-                [style.background]="circuit.color + '18'"
-                [style.color]="circuit.color"
-                >{{ circuit.etapes.length }}</span
-              >
+              <span class="etape-count-badge" [style.background]="circuit.color + '18'" [style.color]="circuit.color">{{
+                circuit.etapes.length }}</span>
             </h3>
 
             <div class="etape-timeline">
-              <div
-                class="etape-timeline-line"
-                [style.background]="
+              <div class="etape-timeline-line" [style.background]="
                   'linear-gradient(to bottom,' + circuit.color + '60, transparent)'
-                "
-              ></div>
+                "></div>
 
-              <div
-                class="etape-card"
-                *ngFor="let etape of circuit.etapes; let i = index; let last = last"
-              >
-                <div
-                  class="etape-node"
-                  [style.background]="circuit.color"
-                  [style.box-shadow]="'0 0 0 4px ' + circuit.color + '25'"
-                >
+              <div class="etape-card" *ngFor="let etape of circuit.etapes; let i = index; let last = last">
+                <div class="etape-node" [style.background]="circuit.color"
+                  [style.box-shadow]="'0 0 0 4px ' + circuit.color + '25'">
                   {{ i + 1 }}
                 </div>
 
@@ -239,10 +192,7 @@
                     </ul>
                   </div>
 
-                  <div
-                    class="etape-section compact-section"
-                    *ngIf="etape.hotels && etape.hotels.length"
-                  >
+                  <div class="etape-section compact-section" *ngIf="etape.hotels && etape.hotels.length">
                     <p class="etape-section-label">
                       <span class="etape-section-icon">🏨</span> Hébergements
                     </p>
@@ -254,10 +204,7 @@
                     </ul>
                   </div>
 
-                  <div
-                    class="etape-section compact-section"
-                    *ngIf="etape.restaurants && etape.restaurants.length"
-                  >
+                  <div class="etape-section compact-section" *ngIf="etape.restaurants && etape.restaurants.length">
                     <p class="etape-section-label">
                       <span class="etape-section-icon">🍽️</span> Restaurants
                     </p>
@@ -303,12 +250,8 @@
 
       <!-- Légende interactive -->
       <div class="map-legend-panel" [class.collapsed]="!legendOpen()">
-        <div
-          class="legend-header"
-          (click)="legendOpen.set(!legendOpen())"
-          [attr.aria-expanded]="legendOpen()"
-          [attr.title]="legendOpen() ? 'Réduire la légende' : 'Déployer la légende'"
-        >
+        <div class="legend-header" (click)="legendOpen.set(!legendOpen())" [attr.aria-expanded]="legendOpen()"
+          [attr.title]="legendOpen() ? 'Réduire la légende' : 'Déployer la légende'">
           <div class="legend-title-row">
             <div class="legend-title-icon">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -331,45 +274,24 @@
           </div>
           <span class="legend-toggle" [class.open]="legendOpen()">
             <svg *ngIf="!legendOpen()" width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path
-                d="M2 3.5L5 6.5L8 3.5"
-                stroke="black"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
             <svg *ngIf="legendOpen()" width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path
-                d="M2 6.5L5 3.5L8 6.5"
-                stroke="black"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+              <path d="M2 6.5L5 3.5L8 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </span>
         </div>
 
         <div class="legend-body" *ngIf="legendOpen()">
-          <div
-            class="legend-all-row"
-            role="button"
-            tabindex="0"
-            [attr.aria-label]="allVisible() ? 'Tout masquer' : 'Tout afficher'"
-            (click)="toggleAll()"
-            (keydown.enter)="toggleAll()"
-            (keydown.space)="toggleAll()"
-          >
+          <div class="legend-all-row" role="button" tabindex="0"
+            [attr.aria-label]="allVisible() ? 'Tout masquer' : 'Tout afficher'" (click)="toggleAll()"
+            (keydown.enter)="toggleAll()" (keydown.space)="toggleAll()">
             <div class="legend-checkbox" [class.checked]="allVisible()">
               <svg *ngIf="allVisible()" width="9" height="9" viewBox="0 0 9 9" fill="none">
-                <path
-                  d="M1.5 4.5L3.5 6.5L7.5 2.5"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
               </svg>
             </div>
             <span class="legend-all-label">
@@ -379,26 +301,14 @@
 
           <div class="legend-separator"></div>
 
-          <div
-            class="legend-item-row"
-            *ngFor="let cl of circuitLayers"
-            (click)="toggleCircuit(cl)"
-            [class.faded]="!cl.visible"
-          >
-            <div
-              class="legend-checkbox"
-              [class.checked]="cl.visible"
+          <div class="legend-item-row" *ngFor="let cl of circuitLayers" (click)="toggleCircuit(cl)"
+            [class.faded]="!cl.visible">
+            <div class="legend-checkbox" [class.checked]="cl.visible"
               [style.background]="cl.visible ? cl.circuit.color : 'transparent'"
-              [style.border-color]="cl.circuit.color"
-            >
+              [style.border-color]="cl.circuit.color">
               <svg *ngIf="cl.visible" width="9" height="9" viewBox="0 0 9 9" fill="none">
-                <path
-                  d="M1.5 4.5L3.5 6.5L7.5 2.5"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <path d="M1.5 4.5L3.5 6.5L7.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
               </svg>
             </div>
             <span class="legend-dash" [style.background]="cl.circuit.color"></span>
@@ -426,15 +336,82 @@
       <div class="map-hint" *ngIf="!brochureOpen()">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2" />
-          <path
-            d="M7 5v4M7 3.5v.5"
-            stroke="currentColor"
-            stroke-width="1.2"
-            stroke-linecap="round"
-          />
+          <path d="M7 5v4M7 3.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
         </svg>
         Cliquez sur une ville ou un circuit pour explorer
       </div>
     </div>
   </div>
 </div>
+
+<ng-container *ngIf="isBrowser()">
+  <div class="wa-fab-container" [class.open]="waOpen()">
+
+    <div class="wa-bubble" [class.visible]="waOpen()">
+      <div class="wa-bubble-header">
+        <div class="wa-bubble-avatar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </div>
+        <div class="wa-bubble-info">
+          <span class="wa-bubble-name">Explora Madagascar</span>
+          <span class="wa-bubble-status">
+            <span class="wa-online-dot"></span> En ligne
+          </span>
+        </div>
+        <button class="wa-bubble-close" (click)="waOpen.set(false)" aria-label="Fermer">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="wa-bubble-body">
+        <div class="wa-msg-hint">
+          <span class="wa-msg-hint-icon">👋</span>
+          <p>Bonjour ! Quel circuit vous intéresse ?</p>
+        </div>
+
+        <div class="wa-form">
+          <label class="wa-label">Circuit souhaité</label>
+          <select class="wa-select" [(ngModel)]="waCircuit">
+            <option value="">-- Choisir un circuit --</option>
+            <option *ngFor="let cl of circuitLayers" [value]="cl.circuit.name">
+              {{ cl.circuit.name }}
+            </option>
+          </select>
+
+          <label class="wa-label" style="margin-top:12px">Votre message</label>
+          <textarea
+            class="wa-textarea"
+            [(ngModel)]="waMessage"
+            rows="3"
+            placeholder="Bonjour, je souhaite des informations sur..."></textarea>
+
+          <button class="wa-send-btn" (click)="sendWhatsApp()" [disabled]="!waMessage.trim()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white" style="flex-shrink:0">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Envoyer sur WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button class="wa-fab" (click)="waOpen.set(!waOpen())" [class.active]="waOpen()" aria-label="Contacter sur WhatsApp">
+      <span class="wa-fab-icon wa-fab-wa" [class.hidden]="waOpen()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+      </span>
+      <span class="wa-fab-icon wa-fab-close" [class.hidden]="!waOpen()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M2 2l16 16M18 2L2 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="wa-fab-pulse"></span>
+    </button>
+
+  </div>
+</ng-container>
