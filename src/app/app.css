@@ -711,19 +711,22 @@ body {
 
 /* ══ LÉGENDE ═════════════════════════════════════════════════════════ */
 .map-legend-panel {
-  position: absolute;
+  position: fixed;
   bottom: 50px;
   right: 14px;
-  z-index: 800;
-  background: rgba(255,255,255,0.66);
+  left: auto;
+  z-index: 1000;
+  background: rgba(255,255,255,0.9);
   border: 1px solid var(--b-mid);
   border-radius: var(--r-lg);
   box-shadow: var(--sh-lg);
   min-width: 200px;
+  max-width: calc(100% - 28px);
   overflow: hidden;
   transition: all 0.3s var(--ease-spring);
   -webkit-backdrop-filter: blur(6px) saturate(110%);
   backdrop-filter: blur(6px) saturate(110%);
+  pointer-events: auto;
 }
 
 .legend-header { display: flex; align-items: center; justify-content: space-between; padding: 11px 14px; cursor: pointer; background: var(--ink); user-select: none; }
@@ -772,14 +775,26 @@ body {
 }
 .legend-separator { height: 1px; background: var(--b-soft); margin: 5px 0; }
 
-.legend-item-row { display: flex; align-items: center; gap: 9px; padding: 6px 7px; cursor: pointer; border-radius: var(--r-sm); transition: all 0.2s var(--ease-out); }
+.legend-item-row {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  min-height: 44px;
+  pointer-events: auto;
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+
 .legend-item-row:hover { background: var(--fog); }
 .legend-item-row.faded { opacity: 0.3; }
 .legend-checkbox { width: 16px; height: 16px; border-radius: 4px; border: 1.5px solid var(--b-firm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; color: var(--ocean); }
 .legend-checkbox.checked { border-color: transparent; color: var(--gold-bright); }
 .legend-checkbox svg path { stroke: currentColor; }
 .legend-dash { width: 22px; height: 3px; border-radius: 99px; flex-shrink: 0; }
-.legend-item-label { font-size: 12px; font-weight: 500; color: var(--ink-soft); white-space: nowrap; }
+.legend-item-label { font-size: 12px; font-weight: 500; color: var(--ink-soft); white-space: normal; word-break: break-word; overflow-wrap: anywhere; flex: 1 1 auto; }
 
 .legend-markers-section { padding: 2px 7px 4px; }
 .legend-markers-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--sage); margin-bottom: 6px; }
@@ -864,8 +879,7 @@ body {
   .map-legend-panel { bottom: 40px; right: 12px; min-width: 188px; }
   .map-hint { font-size: 12px; bottom: 28px; }
 }
-
-/* ══ TABLETTE PORTRAIT 640px – 767px ════════════════════════════════ */
+/*
 @media (min-width: 640px) and (max-width: 767px) {
   :root { --header-height: 54px; }
   .app-shell { overflow: hidden; }
@@ -904,151 +918,81 @@ body {
   .brochure-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
   .stat-icon-wrap { width: 36px; height: 36px; font-size: 17px; }
   .stat-value { font-size: 13px; }
-  .map-legend-panel { bottom: 52px; right: 10px; min-width: 176px; }
-  .map-hint { font-size: 11.5px; padding: 8px 16px; bottom: 24px; }
-  .legend-item-label { font-size: 11px; }
+  .map-legend-panel {
+    position: fixed;
+    top: calc(var(--header-height, 54px) + 8px);
+    bottom: auto;
+    right: 8px;
+    left: 8px;
+    z-index: 1000;
+    max-width: calc(100% - 16px);
+    touch-action: manipulation;
+    pointer-events: auto;
+    margin: 0 auto;
+  }
+  .legend-body {
+    z-index: auto;
+  }
+  .legend-item-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    width: 100%;
+    pointer-events: auto;
+  }  .map-hint { font-size: 11.5px; padding: 8px 16px; bottom: 24px; }
+  .legend-item-label {
+    white-space: normal;
+    word-break: break-word;
+    flex: 1 1 auto;
+  }}
+
+
+/* Ensure legend rows are fully clickable on small screens
+   - allow label wrapping
+   - bring rows above possible overlays
+   - ensure full width and pointer-events
+*/
+@media (max-width: 767px) {
+  .legend-body { z-index: 1102; }
+  .legend-item-row {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 100001;
+    width: 100%;
+    pointer-events: auto;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    background: transparent;
+    border-radius: 8px;
+    gap: 10px;
+  }
+  .legend-item-label {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    flex: 1 1 auto;
+  }
+  .legend-checkbox, .legend-dash { flex: 0 0 auto; }
 }
 
-/* ══ MOBILE GRAND 480px – 639px ═════════════════════════════════════ */
-@media (min-width: 480px) and (max-width: 639px) {
-  :root { --header-height: 52px; }
-  .map-header { height: 52px; padding: 0 16px; grid-template-columns: 1fr auto; }
-  .header-center, .header-meta { display: none; }
-  .brand-sub { display: none; }
-  .brand-title { font-size: 13px; letter-spacing: 0.5px; }
-  .brand-emblem { width: 32px; height: 32px; }
-  .brand-emblem-inner { font-size: 16px; }
-  .brochure {
-    position: fixed;
-    top: 52px; left: 0; right: 0;
-    width: 100%;
-    height: calc(100vh - 52px);
-    border-right: none;
-    border-radius: 0;
-    transform: translateY(100%);
-    transition: var(--panel-transition);
-    box-shadow: 0 -6px 30px rgba(13, 27, 17, 0.14);
-    z-index: 500;
-  }
-  .brochure.open { transform: translateY(0); }
-  .brochure::before {
-    content: '';
-    display: block;
-    width: 40px; height: 4px;
-    background: var(--b-firm);
-    border-radius: var(--r-pill);
-    margin: 12px auto 0;
-  }
-  .brochure-hero { height: 180px; padding: 20px 22px; }
-  .brochure-hero .brochure-city-name { font-size: 26px; }
-  .brochure-emoji { font-size: 40px; }
-  .brochure-body { padding: 22px 18px; gap: 20px; }
-  .brochure-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat-card { padding: 12px; gap: 10px; }
-  .stat-icon-wrap { width: 34px; height: 34px; font-size: 16px; }
-  .stat-label { font-size: 9px; }
-  .stat-value { font-size: 12.5px; }
-  .highlight-item { padding: 12px 14px; font-size: 13px; }
-  .brochure-description { font-size: 13.5px; line-height: 1.8; padding: 16px 18px; }
-  .route-hero-section { padding: 32px 22px 24px; }
-  .route-hero-name { font-size: 20px; }
-  .route-hero-subtitle { font-size: 11px; }
-  .map-legend-panel { bottom: 46px; right: 8px; min-width: 164px; }
-  .legend-title { font-size: 10px; }
-  .legend-item-label { font-size: 11px; }
-  .map-hint { display: none; }
-  .etape-timeline { padding-left: 28px; }
-  .etape-content { padding: 14px; }
-  .etape-nom { font-size: 14px; }
-  .etape-description { font-size: 13px; }
-  .empty-title { font-size: 19px; }
-  .empty-desc { font-size: 13px; }
-  .empty-illustration { width: 100px; height: 100px; margin-bottom: 22px; }
-  .empty-compass { font-size: 38px; }
-  .ring-2 { width: 80px; height: 80px; }
-  .ring-3 { width: 108px; height: 108px; }
+/* Fallback strict rules: forcer les cibles tactiles et empêcher tout overlay d'intercepter les clics */
+.legend-item-row {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  min-height: 44px; /* cible tactile minimale */
+  position: relative;
+  z-index: 100010 !important;
+  background: rgba(255,255,255,0.02);
+}
+.legend-item-row, .legend-item-row * {
+  pointer-events: auto !important;
 }
 
-/* ══ MOBILE COMPACT < 480px ═════════════════════════════════════════ */
-@media (max-width: 479px) {
-  :root { --header-height: 50px; }
-  .map-header { height: 50px; padding: 0 14px; grid-template-columns: auto 1fr; }
-  .header-center, .header-meta { display: none; }
-  .brand-title, .brand-sub { display: none; }
-  .brand-emblem { width: 30px; height: 30px; }
-  .brand-emblem-inner { font-size: 14px; }
-  .brochure {
-    position: fixed;
-    top: 50px; left: 0; right: 0; bottom: 0;
-    width: 100%;
-    height: calc(100vh - 50px);
-    border-right: none;
-    border-radius: 0;
-    transform: translateY(100%);
-    transition: var(--panel-transition);
-    box-shadow: 0 -6px 24px rgba(13, 27, 17, 0.18);
-    z-index: 500;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .brochure.open { transform: translateY(0); }
-  .brochure::before {
-    content: '';
-    display: block;
-    width: 36px; height: 3px;
-    background: var(--b-firm);
-    border-radius: var(--r-pill);
-    margin: 10px auto 0;
-  }
-  .brochure-hero { height: 160px; padding: 16px 18px; }
-  .brochure-hero .brochure-city-name { font-size: 22px; }
-  .brochure-emoji { font-size: 34px; }
-  .hero-badge { font-size: 9px; padding: 4px 10px; letter-spacing: 1.5px; }
-  .brochure-region { font-size: 11px; }
-  .brochure-body { padding: 18px 16px; gap: 18px; }
-  .brochure-stats { grid-template-columns: 1fr; gap: 10px; }
-  .stat-card { padding: 12px 14px; }
-  .brochure-description { font-size: 13px; line-height: 1.75; padding: 14px 16px; }
-  .highlight-item { padding: 10px 12px; font-size: 12.5px; gap: 12px; }
-  .highlight-num { width: 22px; height: 22px; font-size: 10px; }
-  .brochure-section .section-title { font-size: 15px; gap: 10px; }
-  .route-hero-section { padding: 28px 18px 20px; }
-  .route-hero-name { font-size: 19px; }
-  .route-hero-subtitle { font-size: 10.5px; }
-  .circuit-description-hero { font-size: 12.5px; }
-  .route-quick-stats { flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
-  .route-stat { font-size: 11px; }
-  .circuit-itinerary-banner { padding: 12px; }
-  .circuit-highlight-card { padding: 14px 16px; margin-top: 12px; }
-  .circuit-highlight-text { font-size: 12.5px; }
-  .etape-timeline { padding-left: 26px; }
-  .etape-timeline-line { left: 9px; }
-  .etape-node { width: 20px; height: 20px; left: -28px; font-size: 10px; }
-  .etape-content { padding: 12px; border-radius: 12px; }
-  .etape-nom { font-size: 13.5px; margin-bottom: 6px; }
-  .etape-description { font-size: 12.5px; line-height: 1.5; }
-  .etape-section { margin-top: 10px; padding-top: 10px; }
-  .etape-section-label { font-size: 9px; margin-bottom: 6px; }
-  .etape-item { font-size: 12px; gap: 8px; }
-  .etape-card { margin-bottom: 22px; }
-  .map-legend-panel { bottom: 16px; right: 8px; min-width: 152px; }
-  .legend-title { font-size: 9.5px; letter-spacing: 1px; }
-  .legend-item-label { font-size: 10.5px; }
-  .legend-body { padding: 6px; }
-  .legend-item-row { padding: 5px 6px; }
-  .legend-all-label { font-size: 12px; }
-  .legend-markers-title { font-size: 8px; }
-  .map-hint { display: none; }
-  .empty-illustration { width: 86px; height: 86px; margin-bottom: 18px; }
-  .empty-compass { font-size: 30px; }
-  .ring-1 { width: 54px; height: 54px; }
-  .ring-2 { width: 72px; height: 72px; }
-  .ring-3 { width: 92px; height: 92px; }
-  .empty-title { font-size: 17px; margin-bottom: 8px; }
-  .empty-desc { font-size: 12.5px; max-width: 240px; margin-bottom: 18px; }
-  .empty-chips { gap: 6px; }
-  .empty-chip { font-size: 11px; padding: 5px 10px; }
-  .brochure-close { top: 18px; right: 18px; width: 34px; height: 34px; }
+/* Si un overlay recouvre encore la légende, ramener la légende entière au tout premier plan */
+.map-legend-panel {
+  z-index: 100020 !important;
 }
 
 /* ══ UTILITAIRES MOBILE ══════════════════════════════════════════════ */
@@ -1060,6 +1004,9 @@ body {
   body.brochure-active { overflow: hidden; position: fixed; width: 100%; }
   .map-hint { display: none; }
   .map-legend-panel { position: absolute; bottom: 20px; right: 10px; left: auto; transform: none; }
+  /* Forcer fixed sur mobile pour éviter que la légende se déplace lors du scroll (Android) */
+  .map-legend-panel { 
+    position: fixed !important; bottom: 20px; right: 10px; left: auto; transform: none; z-index: 100020 !important; }
   .brochure-backdrop {
     display: block;
     position: fixed;
@@ -1161,17 +1108,47 @@ body {
 
 /* ══ WHATSAPP FAB ════════════════════════════════════════════════════ */
 .wa-fab-container {
-  position: fixed !important;
-  bottom: 28px !important;
-  right: 28px !important;
-  z-index: 99999;
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  right: auto;
+  z-index: 1100;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 12px;
-  will-change: transform;
-  /* Détache du contexte de stacking parent */
-  transform: translateZ(0);
+  pointer-events: none; /* container transparent aux clics */
+}
+
+.wa-fab-container > * {
+  pointer-events: auto;
+}
+/* Eviter que le FAB WhatsApp chevauche la légende :
+   Sur grands écrans, décale le FAB vers la gauche en tenant compte
+   de la largeur minimale de la légende. Ne pas modifier le comportement mobile.
+*/
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .wa-fab-container { left: calc(14px + 200px + 18px); right: auto; }
+}
+
+@media (min-width: 1440px) {
+  .wa-fab-container { left: calc(14px + 230px + 18px); right: auto; }
+}
+
+
+/* Tablet widths: éviter chevauchement sur 768px–1023px où la légende est plus étroite */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .wa-fab-container { left: calc(12px + 188px + 12px); right: auto; }
+}
+
+/* Mobile: ensure WA FAB stays above the legend and is visible */
+@media (max-width: 767px) {
+  .wa-fab-container {
+    left: 14px;
+    right: auto;
+    bottom: 16px;
+    z-index: 1100;
+  }
 }
 
 .wa-fab {
@@ -1186,7 +1163,6 @@ body {
   transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease;
   flex-shrink: 0;
 }
-
 .wa-fab:hover {
   transform: scale(1.08);
   box-shadow: 0 6px 28px rgba(37,211,102,0.55);
@@ -1228,11 +1204,12 @@ body {
   overflow: hidden;
   opacity: 0;
   transform: translateY(12px) scale(0.96);
-  transform-origin: bottom right;
+  transform-origin: bottom left;
   pointer-events: none;
   transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1),
               transform 0.35s cubic-bezier(0.16,1,0.3,1);
   border: 1px solid rgba(0,0,0,0.06);
+  z-index: 200001 !important;
 }
 
 .wa-bubble.visible {

@@ -248,7 +248,16 @@
     <div class="map-wrapper">
       <div id="map" #mapContainer></div>
 
-      <!-- Légende interactive -->
+      <!-- Hint -->
+      <div class="map-hint" *ngIf="!brochureOpen()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2" />
+          <path d="M7 5v4M7 3.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+        </svg>
+        Cliquez sur une ville ou un circuit pour explorer
+      </div>
+
+            <!-- Légende interactive -->
       <div class="map-legend-panel" [class.collapsed]="!legendOpen()">
         <div class="legend-header" (click)="legendOpen.set(!legendOpen())" [attr.aria-expanded]="legendOpen()"
           [attr.title]="legendOpen() ? 'Réduire la légende' : 'Déployer la légende'">
@@ -272,13 +281,9 @@
             -->
             </span>
           </div>
-          <span class="legend-toggle" [class.open]="legendOpen()">
-            <svg *ngIf="!legendOpen()" width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <span class="legend-toggle" [class.open]="legendOpen()" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" class="legend-chevron">
               <path d="M2 3.5L5 6.5L8 3.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-            <svg *ngIf="legendOpen()" width="10" height="10" viewBox="0 0 10 10" fill="none">
-              <path d="M2 6.5L5 3.5L8 6.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
                 stroke-linejoin="round" />
             </svg>
           </span>
@@ -317,28 +322,8 @@
 
           <div class="legend-separator"></div>
 
-          <!-- Légende marqueurs de villes -->
-          <div class="legend-markers-section">
-            <p class="legend-markers-title">Marqueurs</p>
-            <div class="legend-marker-row">
-              <div class="legend-marker-dot large gold"></div>
-              <span class="legend-item-label">Ville principale</span>
-            </div>
-            <div class="legend-marker-row">
-              <div class="legend-marker-dot small white-border"></div>
-              <span class="legend-item-label">Étape de circuit</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Hint -->
-      <div class="map-hint" *ngIf="!brochureOpen()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.2" />
-          <path d="M7 5v4M7 3.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-        </svg>
-        Cliquez sur une ville ou un circuit pour explorer
+        </div>
       </div>
     </div>
   </div>
