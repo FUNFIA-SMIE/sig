@@ -1116,6 +1116,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: flex-end; /* garder la rangée de FAB en bas du conteneur */
   gap: 12px;
   pointer-events: none; /* container transparent aux clics */
 }
@@ -1123,6 +1124,15 @@ body {
 .wa-fab-container > * {
   pointer-events: auto;
 }
+
+/* Arrange FAB buttons horizontally */
+.wa-fab-container .fab-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+/* When a bubble is open, block pointer events on the FAB row so the bubble receives clicks */
+/* removed: .wa-fab-container .fab-row.blocked to keep FABs clickable */
 /* Eviter que le FAB WhatsApp chevauche la légende :
    Sur grands écrans, décale le FAB vers la gauche en tenant compte
    de la largeur minimale de la légende. Ne pas modifier le comportement mobile.
@@ -1210,12 +1220,16 @@ body {
               transform 0.35s cubic-bezier(0.16,1,0.3,1);
   border: 1px solid rgba(0,0,0,0.06);
   z-index: 200001 !important;
+  position: absolute; /* superposer les bulles au même endroit */
+  left: 0;
+  bottom: calc(58px + 12px + 8px); /* remonter la bulle au-dessus des FABs pour éviter le chevauchement */
 }
 
 .wa-bubble.visible {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
+  z-index: 300000 !important; /* ensure visible bubble sits above FABs */
 }
 
 .wa-bubble-header {
@@ -1325,4 +1339,5 @@ body {
   .wa-fab-container { bottom: 16px; right: 14px; }
   .wa-bubble { width: calc(100vw - 28px); max-width: 320px; }
   .wa-fab { width: 52px; height: 52px; }
+  .wa-bubble { bottom: calc(52px + 12px + 8px); }
 }

@@ -1,7 +1,8 @@
-import { Component, signal, PLATFORM_ID, Inject, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, signal, effect, PLATFORM_ID, Inject, OnDestroy, OnInit, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { ServiceMail } from './service/service-mail';
 import { firstValueFrom } from 'rxjs';
 import { EtapeSlider } from './component/etape-slider/etape-slider';
 import { FormsModule } from '@angular/forms';
@@ -953,7 +954,56 @@ export class App implements OnInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
-  ) {}
+    private serviceMail: ServiceMail,
+  ) {
+    // Garantir l'exclusivité : si l'un s'ouvre, l'autre se ferme
+    effect(() => {
+      if (this.mailOpen()) this.waOpen.set(false);
+    });
+    effect(() => {
+      if (this.waOpen()) this.mailOpen.set(false);
+    });
+  }
+
+  // Mail form state
+  mailOpen = signal(false);
+  mailTo = '';
+  mailSubject = '';
+  mailBody = '';
+
+  toggleMailOpen(): void {
+    const next = !this.mailOpen();
+    this.mailOpen.set(next);
+    if (next) this.waOpen.set(false);
+  }
+
+  toggleWaOpen(): void {
+    const next = !this.waOpen();
+    this.waOpen.set(next);
+    if (next) this.mailOpen.set(false);
+  }
+
+  sendMailEmail(): void {
+    const data = {
+      to_email: this.mailTo,
+      subject: this.mailSubject,
+      message: this.mailBody,
+    };
+
+    this.serviceMail
+      .sendMail(data)
+      .then((res) => {
+        console.log('Mail envoyé', res);
+        this.mailOpen.set(false);
+        this.mailTo = '';
+        this.mailSubject = '';
+        this.mailBody = '';
+      })
+      .catch((err) => {
+        console.error('Erreur envoi mail', err);
+        alert('Erreur lors de l\'envoi du mail.');
+      });
+  }
 
   private buildCityCoordsFromGeojson(geojson: any): Record<string, [number, number]> {
     if (!geojson?.features) return {};
