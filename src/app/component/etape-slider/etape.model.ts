@@ -85,12 +85,8 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
       caption: 'Ambatolampy — Photo 2',
     },
     {
-      url: '/Photos/Ambatolampy/PXL_20250817_120119631.RAW-02.ORIGINAL.dng',
-      caption: 'Ambatolampy — Photo 3 (DNG)',
-    },
-    {
       url: '/Photos/Ambatolampy/PXL_20250905_130020544.RAW-01.COVER.jpg',
-      caption: 'Ambatolampy — Photo 4',
+      caption: 'Ambatolampy — Photo 3',
     },
   ],
 
@@ -273,20 +269,12 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
       caption: 'Miandrivazo — Photo 1',
     },
     {
-      url: '/Photos/Miandrivazo/PXL_20250818_131353941.RAW-02.ORIGINAL.dng',
-      caption: 'Miandrivazo — Photo 2 (DNG)',
-    },
-    {
       url: '/Photos/Miandrivazo/PXL_20250819_063001829.RAW-01.COVER.jpg',
-      caption: 'Miandrivazo — Photo 3',
-    },
-    {
-      url: '/Photos/Miandrivazo/PXL_20250819_063001829.RAW-02.ORIGINAL.dng',
-      caption: 'Miandrivazo — Photo 4 (DNG)',
+      caption: 'Miandrivazo — Photo 2',
     },
     {
       url: '/Photos/Miandrivazo/PXL_20250819_063007141.RAW-01.COVER.jpg',
-      caption: 'Miandrivazo — Photo 5',
+      caption: 'Miandrivazo — Photo 3',
     },
   ],
 
@@ -353,10 +341,7 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
       url: '/Photos/Morondava/PXL_20250823_144645338.RAW-01.COVER.jpg',
       caption: 'Morondava — Photo 15',
     },
-    {
-      url: '/Photos/Morondava/PXL_20250823_144645338.RAW-02.ORIGINAL.dng',
-      caption: 'Morondava — Photo 16 (DNG)',
-    },
+
   ],
 
   // ── Tsingy ──────────────────────────────────────────────────
@@ -886,24 +871,20 @@ Ambalavao: [
       caption: 'Belo sur Mer — Photo 3',
     },
     {
-      url: '/Photos/Belo Sur Mer/PXL_20250824_123708893.RAW-02.ORIGINAL[2].dng',
-      caption: 'Belo sur Mer — Photo 4 (DNG)',
-    },
-    {
       url: '/Photos/Belo Sur Mer/PXL_20250824_144430108.RAW-01.COVER[2].jpg',
-      caption: 'Belo sur Mer — Photo 5',
+      caption: 'Belo sur Mer — Photo 4',
     },
     {
       url: '/Photos/Belo Sur Mer/PXL_20250824_150647005.RAW-01.COVER[2].jpg',
-      caption: 'Belo sur Mer — Photo 6',
+      caption: 'Belo sur Mer — Photo 5',
     },
     {
       url: '/Photos/Belo Sur Mer/PXL_20250824_151908616.RAW-01.COVER[2].jpg',
-      caption: 'Belo sur Mer — Photo 7',
+      caption: 'Belo sur Mer — Photo 6',
     },
     {
       url: '/Photos/Belo Sur Mer/PXL_20250825_040231247.RAW-01.COVER[2].jpg',
-      caption: 'Belo sur Mer — Photo 8',
+      caption: 'Belo sur Mer — Photo 7',
     },
   ],
 
@@ -946,12 +927,8 @@ Ambalavao: [
       caption: 'Morombe — Photo 9',
     },
     {
-      url: '/Photos/Morombe/PXL_20250826_084632380.RAW-02.ORIGINAL.dng',
-      caption: 'Morombe — Photo 10 (DNG)',
-    },
-    {
       url: '/Photos/Morombe/PXL_20250826_091555933.RAW-01.COVER.jpg',
-      caption: 'Morombe — Photo 11',
+      caption: 'Morombe — Photo 10',
     },
   ],
 
