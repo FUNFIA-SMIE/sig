@@ -47,6 +47,14 @@
         </svg>
       </button>
 
+      <button *ngIf="brochureOpen()" class="brochure-scroll-top" [class.visible]="brochureScrolled()"
+        (click)="scrollBrochureToTop()" aria-label="Retour en haut">
+        <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+          <path d="M2 8L6 4L10 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+
       <!-- ── PANNEAU VILLE ──────────────────────────────────────────── -->
       <ng-container *ngIf="activePanel() === 'city' && selectedCity() as city">
         <div class="brochure-hero city-hero">
@@ -257,7 +265,7 @@
         Cliquez sur une ville ou un circuit pour explorer
       </div>
 
-            <!-- Légende interactive -->
+      <!-- Légende interactive -->
       <div class="map-legend-panel" [class.collapsed]="!legendOpen()">
         <div class="legend-header" (click)="legendOpen.set(!legendOpen())" [attr.aria-expanded]="legendOpen()"
           [attr.title]="legendOpen() ? 'Réduire la légende' : 'Déployer la légende'">
@@ -336,7 +344,7 @@
       <div class="wa-bubble-header" style="background:#D14836">
         <div class="wa-bubble-avatar">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
-            <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
           </svg>
         </div>
         <div class="wa-bubble-info">
@@ -347,7 +355,7 @@
         </div>
         <button class="wa-bubble-close" (click)="mailOpen.set(false)" aria-label="Fermer">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
           </svg>
         </button>
       </div>
@@ -368,8 +376,11 @@
           <label class="wa-label" style="margin-top:10px">Message</label>
           <textarea class="wa-textarea" [(ngModel)]="mailBody" rows="4" placeholder="Votre message..."></textarea>
 
-          <button class="wa-send-btn" [disabled]="!mailTo || !mailBody" (click)="sendMailEmail()" style="background:#D14836">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="white"/></svg>
+          <button class="wa-send-btn" [disabled]="!mailTo || !mailBody" (click)="sendMailEmail()"
+            style="background:#D14836">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="white" />
+            </svg>
             Envoyer par e-mail
           </button>
         </div>
@@ -380,7 +391,8 @@
       <div class="wa-bubble-header">
         <div class="wa-bubble-avatar">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
           </svg>
         </div>
         <div class="wa-bubble-info">
@@ -391,7 +403,7 @@
         </div>
         <button class="wa-bubble-close" (click)="waOpen.set(false)" aria-label="Fermer">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
           </svg>
         </button>
       </div>
@@ -412,15 +424,13 @@
           </select>
 
           <label class="wa-label" style="margin-top:12px">Votre message</label>
-          <textarea
-            class="wa-textarea"
-            [(ngModel)]="waMessage"
-            rows="3"
+          <textarea class="wa-textarea" [(ngModel)]="waMessage" rows="3"
             placeholder="Bonjour, je souhaite des informations sur..."></textarea>
 
           <button class="wa-send-btn" (click)="sendWhatsApp()" [disabled]="!waMessage.trim()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="white" style="flex-shrink:0">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
             </svg>
             Envoyer sur WhatsApp
           </button>
@@ -429,15 +439,16 @@
     </div>
 
     <div class="fab-row">
-      <button class="wa-fab" (click)="toggleMailOpen()" [class.active]="mailOpen()" aria-label="Envoyer un e-mail" style="background:#D14836; box-shadow: 0 4px 20px rgba(209,72,54,0.35);">
+      <button class="wa-fab" (click)="toggleMailOpen()" [class.active]="mailOpen()" aria-label="Envoyer un e-mail"
+        style="background:#D14836; box-shadow: 0 4px 20px rgba(209,72,54,0.35);">
         <span class="wa-fab-icon wa-fab-mail" [class.hidden]="mailOpen()">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
-            <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
           </svg>
         </span>
         <span class="wa-fab-icon wa-fab-close" [class.hidden]="!mailOpen()">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M2 2l16 16M18 2L2 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M2 2l16 16M18 2L2 18" stroke="white" stroke-width="2" stroke-linecap="round" />
           </svg>
         </span>
         <span class="wa-fab-pulse"></span>
@@ -446,16 +457,33 @@
       <button class="wa-fab" (click)="toggleWaOpen()" [class.active]="waOpen()" aria-label="Contacter sur WhatsApp">
         <span class="wa-fab-icon wa-fab-wa" [class.hidden]="waOpen()">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
           </svg>
         </span>
         <span class="wa-fab-icon wa-fab-close" [class.hidden]="!waOpen()">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M2 2l16 16M18 2L2 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <path d="M2 2l16 16M18 2L2 18" stroke="white" stroke-width="2" stroke-linecap="round" />
           </svg>
         </span>
         <span class="wa-fab-pulse"></span>
       </button>
+
+      <button *ngIf="brochureOpen()" class="wa-fab" (click)="closeBrochure()" aria-label="Fermer la brochure"
+        style="background: var(--ink); box-shadow: 0 4px 20px rgba(13,27,17,0.35);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="black" stroke-width="2.5" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg> </button>
     </div>
   </div>
+  <!--
+  <button class="brochure-scroll-top" (click)="scrollBrochureToTop()" aria-label="Retour en haut">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+      <path d="M2 8L6 4L10 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+-->
 </ng-container>
+
+<!-- Bouton retour en haut — visible seulement sur mobile quand on scrolle -->

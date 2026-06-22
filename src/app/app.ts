@@ -59,7 +59,7 @@ const CITY_COORDS: Record<string, [number, number]> = {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, EtapeSlider,FormsModule],
+  imports: [CommonModule, EtapeSlider, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -303,7 +303,7 @@ export class App implements OnInit, OnDestroy {
             "Trois baies"
 
           ],
-          hotels: ['•Grand Hôtel Diego', 'Nature Lodge', 'Allamanda Hotel','Sakalava Lodge','Kiteparadise Madagascar'],
+          hotels: ['•Grand Hôtel Diego', 'Nature Lodge', 'Allamanda Hotel', 'Sakalava Lodge', 'Kiteparadise Madagascar'],
           restaurants: [
             "Le Melville",
             'Su e Giu',
@@ -963,6 +963,7 @@ export class App implements OnInit, OnDestroy {
     effect(() => {
       if (this.waOpen()) this.mailOpen.set(false);
     });
+
   }
 
   // Mail form state
@@ -1048,7 +1049,7 @@ export class App implements OnInit, OnDestroy {
       'Tuléar (Toliara)': 'Toliara',
       'Anakao & Nosy Ve': 'Anakao',
       'Andringitra & Tsaranoro': 'Tsarasaotra',
-      'Diego':'Antsiranana'
+      'Diego': 'Antsiranana'
     };
 
     for (const [alias, realName] of Object.entries(aliases)) {
@@ -1058,19 +1059,25 @@ export class App implements OnInit, OnDestroy {
     }
   }
 
-ngOnInit(): void {
-  this.isBrowser.set(isPlatformBrowser(this.platformId));
+  ngOnInit(): void {
+    this.isBrowser.set(isPlatformBrowser(this.platformId));
 
-  if (isPlatformBrowser(this.platformId)) {
-    void this.loadCityCoords();
+    if (isPlatformBrowser(this.platformId)) {
+      void this.loadCityCoords();
+    }
   }
-}
   async ngAfterViewInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) return;
 
     // Délai pour que le DOM soit vraiment prêt après SSR hydration
     await new Promise((resolve) => setTimeout(resolve, 0));
     await this.initMap();
+    /*
+    effect(() => {
+      if (this.brochureOpen()) {
+        setTimeout(() => this.setupBrochureScroll(), 500);
+      }
+    });*/
   }
 
   // Retourne le nombre total de villes d'itinéraire uniques
@@ -1364,7 +1371,7 @@ ngOnInit(): void {
 
       // ✅ Créé mais PAS ajouté à la carte
       labelMarker = L.marker(labelLatLng, { icon: labelIcon, interactive: false });
-    } catch (e) {}
+    } catch (e) { }
 
     layer.on('mouseover', () => {
       layer.setStyle({ weight: 8, opacity: 1 });
@@ -1388,7 +1395,7 @@ ngOnInit(): void {
           } else {
             try {
               this.map.removeLayer(cl.labelMarker);
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       });
@@ -1434,7 +1441,7 @@ ngOnInit(): void {
           cl.layer.addTo(this.map);
           cl.halo.addTo(this.map);
           cl.itinMarkers.forEach((m: any) => m.addTo(this.map));
-        } catch (e) {}
+        } catch (e) { }
       }
     });
   }
@@ -1531,23 +1538,47 @@ ngOnInit(): void {
 
   ngOnDestroy(): void {
     this.map?.remove();
+
   }
 
 
-isBrowser = signal(false);
-waOpen = signal(false);
-waCircuit = '';
-waMessage = '';
+  isBrowser = signal(false);
+  waOpen = signal(false);
+  waCircuit = '';
+  waMessage = '';
 
 
-sendWhatsApp(): void {
-  const phone = '261346799213'; // ← votre numéro
-  const circuitPart = this.waCircuit ? `*Circuit : ${this.waCircuit}*\n\n` : '';
-  const fullMessage = `${circuitPart}${this.waMessage}`;
-  const encoded = encodeURIComponent(fullMessage);
-  window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
-  this.waOpen.set(false);
-  this.waMessage = '';
-  this.waCircuit = '';
-}
+  sendWhatsApp(): void {
+    const phone = '261346799213'; // ← votre numéro
+    const circuitPart = this.waCircuit ? `*Circuit : ${this.waCircuit}*\n\n` : '';
+    const fullMessage = `${circuitPart}${this.waMessage}`;
+    const encoded = encodeURIComponent(fullMessage);
+    window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+    this.waOpen.set(false);
+    this.waMessage = '';
+    this.waCircuit = '';
+  }
+
+  // Dans App component
+
+  brochureScrolled = signal(false);
+
+
+
+  scrollBrochureToTop(): void {
+    if (!isPlatformBrowser(this.platformId)) return; // ← guard SSR
+    const el = document.querySelector('.brochure') as HTMLElement;
+    if (el) el.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+
+  /*
+  ngOnDestroy(): void {
+    this.map?.remove();
+    const el = document.querySelector('.brochure') as HTMLElement;
+    if (el && this.brochureScrollListener) {
+      el.removeEventListener('scroll', this.brochureScrollListener);
+    }
+  }
+  */
 }

@@ -817,21 +817,97 @@ body {
 }
 
 /* ══ RESPONSIVE MOBILE ══════════════════════════════════════════════ */
+/* ══ RESPONSIVE MOBILE ══════════════════════════════════════════════ */
+/* ══ RESPONSIVE MOBILE ══════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .brochure {
-    width: 100vw;
-    position: absolute;
+    position: fixed !important;
     top: 62px;
-    bottom: 0;
     left: 0;
-    z-index: 100;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: calc(100vh - 62px);
+    transform: translateY(100%);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 200000;
+    border-right: none;
+    border-top: 1px solid var(--b-mid);
+    box-shadow: 0 -8px 40px rgba(13, 27, 17, 0.14);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
-  .map-header { padding: 0 16px; grid-template-columns: 1fr auto; }
+
+  .brochure.open {
+    transform: translateY(0);
+  }
+
+  .map-header {
+    padding: 0 16px;
+    grid-template-columns: 1fr auto;
+  }
+
   .header-center { display: none; }
   .header-meta { display: none; }
-  .map-legend-panel { bottom: 60px; right: 10px; }
-}
 
+  .map-legend-panel {
+    position: fixed !important;
+    bottom: 20px;
+    right: 10px;
+    left: auto;
+    z-index: 100020 !important;
+  }
+
+  .map-hint { display: none; }
+
+  /* FABs repositionnés en haut à droite sur mobile */
+  .wa-fab-container {
+    top: 72px !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: 14px !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    z-index: 300000 !important;
+  }
+
+  /* Les bulles s'ouvrent vers le bas sur mobile */
+  .wa-bubble {
+    bottom: auto !important;
+    top: calc(58px + 12px + 8px) !important;
+    left: auto !important;
+    right: 0 !important;
+    width: calc(100vw - 28px) !important;
+    max-width: 320px !important;
+    transform-origin: top right !important;
+  }
+
+  .wa-bubble.visible {
+    transform: translateY(0) scale(1) !important;
+  }
+
+  /* État fermé adapté pour l'ouverture vers le bas */
+  .wa-bubble:not(.visible) {
+    transform: translateY(-12px) scale(0.96) !important;
+  }
+
+  .brochure-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 27, 17, 0.32);
+    z-index: 199999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .brochure-backdrop.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
 /* ══ RESPONSIVE VARIABLES ════════════════════════════════════════════ */
 :root {
   --brochure-width: 440px;
@@ -1111,14 +1187,14 @@ body {
   position: fixed;
   bottom: 28px;
   left: 28px;
-  right: auto;
   z-index: 1100;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-end; /* garder la rangée de FAB en bas du conteneur */
+  justify-content: flex-end;
   gap: 12px;
-  pointer-events: none; /* container transparent aux clics */
+  /* Le container lui-même ne doit pas capter de clics */
+  pointer-events: none;
 }
 
 .wa-fab-container > * {
@@ -1130,6 +1206,7 @@ body {
   display: flex;
   gap: 12px;
   align-items: center;
+  pointer-events: auto;
 }
 /* When a bubble is open, block pointer events on the FAB row so the bubble receives clicks */
 /* removed: .wa-fab-container .fab-row.blocked to keep FABs clickable */
@@ -1212,24 +1289,36 @@ body {
   border-radius: 16px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.14);
   overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  position: absolute;
+  left: 0;
+  bottom: calc(58px + 12px + 8px);
+
+  /* ↓ Les trois propriétés qui bloquent toute interception */
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
   transform: translateY(12px) scale(0.96);
   transform-origin: bottom left;
-  pointer-events: none;
-  transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1),
-              transform 0.35s cubic-bezier(0.16,1,0.3,1);
-  border: 1px solid rgba(0,0,0,0.06);
-  z-index: 200001 !important;
-  position: absolute; /* superposer les bulles au même endroit */
-  left: 0;
-  bottom: calc(58px + 12px + 8px); /* remonter la bulle au-dessus des FABs pour éviter le chevauchement */
+  /* visibility doit être dans la transition */
+  transition:
+    opacity    0.35s cubic-bezier(0.16,1,0.3,1),
+    transform  0.35s cubic-bezier(0.16,1,0.3,1),
+    visibility 0s   linear 0.35s;
+  z-index: 200001;
 }
-
 .wa-bubble.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  visibility: visible;
   pointer-events: auto;
-  z-index: 300000 !important; /* ensure visible bubble sits above FABs */
+  transform: translateY(0) scale(1);
+  /* visibility passe instantanément à visible à l'ouverture */
+  transition:
+    opacity    0.35s cubic-bezier(0.16,1,0.3,1),
+    transform  0.35s cubic-bezier(0.16,1,0.3,1),
+    visibility 0s   linear 0s;
+  z-index: 300000;
 }
 
 .wa-bubble-header {
@@ -1336,8 +1425,65 @@ body {
 
 /* Mobile */
 @media (max-width: 479px) {
-  .wa-fab-container { bottom: 16px; right: 14px; }
-  .wa-bubble { width: calc(100vw - 28px); max-width: 320px; }
+  .wa-fab-container { bottom: 16px; }
   .wa-fab { width: 52px; height: 52px; }
-  .wa-bubble { bottom: calc(52px + 12px + 8px); }
+  .wa-bubble {
+    width: calc(100vw - 28px);
+    max-width: 320px;
+    /* Recalculer avec la hauteur réduite du FAB mobile */
+    bottom: calc(52px + 12px + 8px);
+  }
+}
+
+/* ══ BOUTON RETOUR EN HAUT (mobile brochure) ════════════════════════ */
+.brochure-scroll-top {
+  display: none; /* caché par défaut */
+}
+
+@media (max-width: 768px) {
+  /* FABs au-dessus de la brochure */
+  .wa-fab-container {
+    top: 72px !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: 14px !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    z-index: 400000 !important;  /* ← plus haut que brochure (200000) */
+  }
+
+  /* Bouton scroll-top à gauche en bas */
+@media (max-width: 768px) {
+  .brochure-scroll-top {
+    display: flex;
+    position: fixed;
+    top: calc(72px + 58px + 12px + 8px); /* ← juste sous les FABs */
+    right: 14px;
+    left: auto;
+    bottom: auto;
+    transform: translateX(20px);
+    padding: 8px 16px;
+    border-radius: var(--r-pill);
+    background: var(--ink);
+    border: none;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 400001;
+    box-shadow: 0 4px 20px rgba(13,27,17,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .brochure-scroll-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+}
 }
