@@ -363,10 +363,6 @@ export const ETAPE_IMAGES: Record<string, EtapeImage[]> = {
   // ── Tsingy ──────────────────────────────────────────────────
   'Tsingy de Bemaraha': [
     {
-      url: '/Photos/Tsingy/PXL_20250821_054914894.RAW-01.COVER~4.jpg',
-      caption: 'Tsingy de Bemaraha — Photo 1',
-    },
-    {
       url: '/Photos/Tsingy/PXL_20250821_064419795.RAW-01.COVER.jpg',
       caption: 'Tsingy de Bemaraha — Photo 2',
     },
