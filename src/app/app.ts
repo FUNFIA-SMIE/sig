@@ -984,27 +984,27 @@ export class App implements OnInit, OnDestroy {
     if (next) this.mailOpen.set(false);
   }
 
-  sendMailEmail(): void {
-    const data = {
-      to_email: this.mailTo,
-      subject: this.mailSubject,
-      message: this.mailBody,
-    };
+sendMailEmail(): void {
+  const data = {
+    to_email: this.mailTo,
+    subject: this.mailSubject,
+    message: this.mailBody,
+  };
 
-    this.serviceMail
-      .sendMail(data)
-      .then((res) => {
-        console.log('Mail envoyé', res);
-        this.mailOpen.set(false);
-        this.mailTo = '';
-        this.mailSubject = '';
-        this.mailBody = '';
-      })
-      .catch((err) => {
-        console.error('Erreur envoi mail', err);
-        alert('Erreur lors de l\'envoi du mail.');
-      });
-  }
+  this.serviceMail
+    .sendMail(data)
+    .then((res) => {
+      console.log('Mail envoyé', res);
+      this.mailOpen.set(false);
+      this.mailTo = '';
+      this.mailSubject = '';
+      this.mailBody = '';
+    })
+    .catch((err) => {
+      console.error('Erreur envoi mail', err);
+      alert('Erreur lors de l\'envoi du mail.');
+    });
+}
 
   private buildCityCoordsFromGeojson(geojson: any): Record<string, [number, number]> {
     if (!geojson?.features) return {};
